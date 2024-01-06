@@ -1,0 +1,70 @@
+
+class clinic :
+    def __init__ (self,clinic_name,address,telephone_number,clinic_password,capacity,service):
+        self.clinic_name = clinic_name
+        self.address = address
+        self.telephone_number = telephone_number
+        self.clinic_password = clinic_password
+        self.capacity = capacity
+        self.service = service
+
+
+    def get_info (self):
+        if len(self.telephone_number) != 8 :
+            print('The telephone number is incorrect')
+        elif len(self.clinic_password) < 8 or not any (c.isdigit for c in self.clinic_password):
+            print('The password is weak.')
+        else :
+            return {
+                'clinic_name': self.clinic_name,
+                'address': self.address,
+                'telephone_number': self.telephone_number,
+                'clinic_password': self.clinic_password,
+                'capacity': self.capacity,
+                'service': self.service
+            }
+    
+        
+
+
+
+
+class secretary :
+    def __init__ (self,full_name,clinic):
+        self.full_name = full_name
+        self.clinic_password = clinic.clinic_password
+        self.clinic_name = clinic.clinic_name
+
+    def get_info(self):
+        return {
+            'full_name': self.full_name,
+            'clinic_name': self.clinic_name,
+            'clinic_password': self.clinic_password
+        }
+
+
+
+
+
+class appointment :
+    def __init__(self,add_apointment,clinic,remove_appointment):
+        self.add_apointment = add_apointment
+        self.service = clinic.service
+        self.capacity = clinic.capacity
+        self.remove_appointment = remove_appointment
+
+    def add_appointment(self, appointment):
+        if self.capacity > 0:
+            self.add_appointment.append(appointment)
+            self.capacity -= 1
+            return "Appointment added successfully!"
+        else:
+            return "No capacity left!"
+
+    def remove_appointment(self, appointment):
+        if appointment in self.add_appointment:
+            self.add_appointment.remove(appointment)
+            self.capacity += 1
+            return "Appointment removed successfully!"
+        else:
+            return "Appointment not found!"
