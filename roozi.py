@@ -66,3 +66,9 @@ class User :
         self.username = username
         self.password = password
 
+    # appointment_obj here is an istanse of class appointment:
+    def book_appointment(self, appointment_obj):
+        return appointment_obj.add_appointment(self.name)
+
+    def cancel_appointment(self, appointment_obj):
+        return appointment_obj.remove_appointment(self.name)
