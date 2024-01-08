@@ -41,12 +41,6 @@ class People :
         else : 
             print("username is wrong")
 
-    def refresh_profile(self , name , password) :
-        pass
-
-    def meetings(self , name , password) :  
-        pass
-    
     
     def insert_data(self, user):
             with self.conn.cursor() as cursor:
