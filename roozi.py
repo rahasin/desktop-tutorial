@@ -71,13 +71,10 @@ class Patient :
         self.password = password
         self.yekbar_masraf = yekbar_masraf
 
+    # appointment_obj here is an istanse of class appointment:
+    def book_appointment(self, appointment_obj):
+        return appointment_obj.add_appointment(self.name)
 
-class Reporting : 
+    def cancel_appointment(self, appointment_obj):
+        return appointment_obj.remove_appointment(self.name)
 
-    def __init__(self , insurance , password ) :
-        pass
-
-
-
-
-p = People()
