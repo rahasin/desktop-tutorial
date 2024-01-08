@@ -1,5 +1,5 @@
 import pymysql
-class clinic :
+class Clinic :
     def __init__ (self , clinic_id , address , clinic_contact_info , clinic_password , capacity , service , connection) :
         self.clinic_id = clinic_id
         self.address = address
@@ -24,7 +24,7 @@ class clinic :
                 'capacity': self.capacity ,
                 'service': self.service
             }
-    
+    #az api vorodi bayad begirim,clinic_id va capacity
     
     def insert_data(self) :
         data = self.get_info()
@@ -34,7 +34,7 @@ class clinic :
                 INSERT INTO clinics (clinic_id , capacity , address , service , clinic_contact_info , clinic_password) 
                 VALUES (%s , %s , %s , %s , %s , %s)
                 """
-                cursor.execute(sql , (data['capacity'] , data['address'] , data['service'] , data['clinic_contact_info'], data['clinic_password']))
+                cursor.execute(sql , (data['clinic_id'] , data['capacity'] , data['address'] , data['service'] , data['clinic_contact_info'], data['clinic_password']))
             self.connection.commit()
 
       
@@ -42,8 +42,7 @@ class clinic :
 
 
 
-class secretary :
-    def __init__ (self , secretary_name , clinic , connection, appointment):
+
         self.secretary_name = secretary_name
         self.clinic_password = clinic.clinic_password
         self.clinic_id = clinic.clinic_id
@@ -81,8 +80,7 @@ class secretary :
 
 
 
-class appointment :
-    def __init__(self , clinic , connection) :
+
         self.service = clinic.service
         self.capacity = clinic.capacity
         self.connection = connection
