@@ -42,12 +42,12 @@ class Clinic :
 
 
 
-class Secretary :
-    def __init__ (self , secretary_name , clinic , connection):
+
         self.secretary_name = secretary_name
         self.clinic_password = clinic.clinic_password
         self.clinic_id = clinic.clinic_id
         self.connection = connection
+        self.appointment = appointment
 
 
     def get_info(self) :
@@ -56,6 +56,12 @@ class Secretary :
             'clinic_name': self.clinic_name , 
             'clinic_password': self.clinic_password
         }
+    # appointment_obj here is an istanse of class appointment:
+    def book_appointment(self, appointment_obj):
+        return appointment_obj.add_appointment(self.secretary_name)
+
+    def cancel_appointment(self, appointment_obj):
+        return appointment_obj.remove_appointment(self.secretary_name)
     
     def insert_data(self) :
         data = self.get_info()
@@ -68,34 +74,40 @@ class Secretary :
                 cursor.execute(sql, (data['patient_natinal_code'], data['patient_name'], data['patient_contact_info']))
             self.connection.commit()
 
+    
 
 
 
 
-class Appointment :
-    def __init__(self , add_apointment , clinic , remove_appointment , connection) :
-        self.add_apointment = add_apointment
+
+
         self.service = clinic.service
         self.capacity = clinic.capacity
-        self.remove_appointment = remove_appointment
         self.connection = connection
+        self.reserve_appointment = 0
+        self.appointments = []
     
-    
+#از آنجایی که ما فقط ظرفیت برایمان مهم هست و اطلاعات خاصی زا نمی‌خواهیم وارد قسمت نوبت دهی‌مان بکنیم اینجا دیگه لیستی تعریف نمی‌کنیم.
     def add_appointment(self , appointment) :
         if self.capacity > 0 :
-            self.add_appointment.append(appointment)
             self.capacity -= 1
+            self.reserve_appointment += 1
+            self.appointments.append(appointment) #write patients names into the list.
             return 'Appointment added successfully!'
         else:
             return 'No capacity left!'
 
     def remove_appointment(self , appointment) :
         if appointment in self.add_appointment :
-            self.add_appointment.remove(appointment)
             self.capacity += 1
+            self.reserve_appointment -= 1
+            self.appointments.remove(appointment) #remove the name of patient from the list.
             return 'Appointment removed successfully!'
         else:
             return 'Appointment not found!'
+        
+    
+        
 
 
 
