@@ -42,7 +42,7 @@ try:
             FOREIGN KEY (patient_name) REFERENCES patients(patient_name),
             reserved_appointments INTEGER,
             FOREIGN KEY (service) REFERENCES clinics(service),
-            FOREIGN KEY (patient_contact_info) REFERENCES patients(patient_contact_info),
+            FOREIGN KEY (clinic_contact_info) REFERENCES clinics(clinic_contact_info),
             FOREIGN KEY (address) REFERENCES clinics(address),
         )
         """
