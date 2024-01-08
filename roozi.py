@@ -20,7 +20,10 @@ def generate_username(length):
 User_list = []
 
 
-class Poeple :
+
+
+
+class People :
 
     def __init__(self) : 
         self.users = {}
@@ -30,9 +33,9 @@ class Poeple :
 
     def sign_in(self , email , name , national_code , age , insurance , sickness , user_type ):
         if name not in self.users :
-            self.users[name] = User(email , name , national_code , age , insurance , sickness , user_type , generate_username(5) , generate_password(10))
+            self.users[name] = Patient(email , name , national_code , age , insurance , sickness , user_type , generate_username(5) , generate_password(10))
         else : 
-            raise Exception ("This name is already exist in our database")
+            print("This name is already exist in our database")
     def log_in(self , username , password ) : 
         pass
     
@@ -43,17 +46,17 @@ class Poeple :
         pass
     
     
-def insert_data(self, user):
-        with self.conn.cursor() as cursor:
-            sql = """
-            INSERT INTO patients (email, name, national_code, age, insurance, sickness, user_type, username, password)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            cursor.execute(sql, (user.email, user.name, user.national_code, user.age, user.insurance, user.sickness, user.user_type, user.username, user.password))
-        self.conn.commit()
+    def insert_data(self, user):
+            with self.conn.cursor() as cursor:
+                sql = """
+                INSERT INTO patients (email, name, national_code, age, insurance, sickness, user_type, username, password)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                cursor.execute(sql, (user.email, user.name, user.national_code, user.age, user.insurance, user.sickness, user.user_type, user.username, user.password))
+            self.conn.commit()
         
         
-class User :
+class Patient :
 
     def __init__(self , email , name , national_code , age , insurance , sickness , user_type , username , password):
         self.name = name
