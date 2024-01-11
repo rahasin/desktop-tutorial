@@ -1,5 +1,6 @@
 import pymysql
-class clinic :
+
+class Clinic :
     def __init__ (self , clinic_id , address , clinic_contact_info , clinic_password , capacity , service , connection) :
         self.clinic_id = clinic_id
         self.address = address
@@ -41,10 +42,10 @@ class clinic :
 
 
 class Secretary :
-    def __init__ (self , secretary_name , Clinic , appointment):
+    def __init__ (self , secretary_name , clinic_id , clinic_password , appointment):
         self.secretary_name = secretary_name
-        self.clinic_password = Clinic.clinic_password
-        self.clinic_id = Clinic.clinic_id
+        self.clinic_password = clinic_password
+        self.clinic_id = clinic_id
         self.appointment = appointment
 
 
