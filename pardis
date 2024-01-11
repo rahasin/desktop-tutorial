@@ -14,8 +14,6 @@ class Clinic :
     def get_info (self) :
         if len(self.clinic_contact_info) != 8 :
             print('The phone number is incorrect')
-        elif len(self.clinic_password) < 8 or not any (c.isdigit for c in self.clinic_password) :
-            print('The password is weak.')
         else :
             return {
                 'clinic_id': self.clinic_id ,

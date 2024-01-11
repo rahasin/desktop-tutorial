@@ -58,7 +58,8 @@ class People :
         else :
             People.all_people[secretary_name] = Secretary(secretary_name , clinic_id , clinic_password , appointment)
         
-    def log_in_secretary(self , secretary_name , clinic_id , clinic_password):
+    def log_in_secretary(self , secretary_name , clinic_id , clinic):
+        self.clinic = Clinic.clinic_password
         if secretary_name not in People.all_people : 
             print("the username/secretary name is wrong")
         elif clinic_password != People.all_people[clinic_id].clinic_password : 
