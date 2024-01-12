@@ -98,7 +98,7 @@ class Patient :
 
         
     
-    def select_patient_info(self, patient_national_code, patient_name, age, insurance, patient_contact_info):
-        query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients ORDER BY patient_national_code"
-        values = (patient_national_code,)
+    def select_capacity_info(self, clinic_id):
+        query = "SELECT clinic_id, service, address, capacity FROM clinics ORBER BY capacity" 
+        values = (clinic_id,)
         return self.execute_query(query, values)
