@@ -25,6 +25,7 @@ try:
             clinic_id INT PRIMARY KEY,
             capacity INT,
             service VARCHAR(255) NOT NULL,
+            reserved_appointments INT,
             address VARCHAR(255) NOT NULL,
             clinic_password VARCHAR(255) NOT NULL,
             clinic_contact_info VARCHAR(255) NOT NULL
@@ -39,22 +40,9 @@ try:
             patient_national_code INT PRIMARY KEY NOT NULL,
             patient_name VARCHAR(255) NOT NULL,
             patient_contact_info VARCHAR(255) NOT NULL,
-            age INT,
-            insurance VARCHAR(255) ,
-            patient_password VARCHAR(255) 
-    )
-        """
-        cursor.execute(sql)
-    
-    with connection.cursor() as cursor:
-     
-        sql = """
-        CREATE TABLE appointments (
-            clinic_id INT,
-            patient_national_code INT,
-            reserved_appointments INT,
-            FOREIGN KEY (clinic_id) REFERENCES clinics(clinic_id),
-            FOREIGN KEY (patient_national_code) REFERENCES patients(patient_national_code)
+            patient_age INT,
+            patient_insurance VARCHAR(255) ,
+            patient_permanent_password VARCHAR(255) 
     )
         """
         cursor.execute(sql)

@@ -36,18 +36,27 @@ class Clinic:
                 'capacity': self.capacity,
                 'service': self.service
             }
-
+    # THIS IS NEW/THIS PART IS FOR DATABASE
     def insert_data(self) :
         data = self.get_info()
         if data is not None :
             with self.connection.cursor() as cursor :
                 sql = """
-                INSERT INTO clinics (clinic_id , capacity , address , service , clinic_contact_info , clinic_password) 
-                VALUES (%s , %s , %s , %s , %s , %s)
-                """
-                cursor.execute(sql , (data['capacity'] , data['address'] , data['service'] , data['clinic_contact_info'] , data['clinic_password']))
+                INSERT INTO clinics (clinic_id , capacity , service , reserved_appointments , address , clinic_password , clinic_contact_info ) 
+                VALUES (%s, %s, %s, %s, %s, %s)
+                      """
+                values = [
+                    (1 , 25 , 'sese' , 0 , 'address1' , 'password1' , 'contact1'),
+                    (2 , 15 , 'service2' , 0 , 'address2' , 'password2' , 'contact2'),
+                    (3 , 15 , 'service3' , 0 , 'address3' , 'password3' , 'contact3'),
+                    (4 , 20 , 'service4' , 0 , 'address4' , 'password4' , 'contact4'),
+                    (5 , 30 , 'service5' , 0 , 'address5' , 'password5' , 'contact5'),
+                    (6 , 9 , 'service6' , 0 , 'address6' , 'password6' , 'contact6'),
+                    (7 , 8 , 'service7' , 0 , 'address7' , 'password7' , 'contact7')
+                ]
+                cursor.executemany(sql , values)
             self.connection.commit()
-
+    # UNTIL HERE
 
 
 
@@ -139,14 +148,18 @@ class Appointment:
             return 'No capacity left!'
         
     
-    def insert_previous_appointments_data(self) :
-        with self.connection.cursor() as cursor :
-            sql = """
-            INSERT INTO previous_appointments (clinic_id , patient_natinal_code , patient_name , reserved_appointments , service , clinic_contact_info , address) 
-            VALUES (%s , %s , %s , %s , %s , %s , %s)
-            """
-            cursor.execute(sql , (self.clinic_id , self.patient_obj.patient_natinal_code , self.patient_obj.patient_name , self.reserved_appointment , self.service , self.clinic_contact_info , self.address))
-        self.connection.commit()
+    # THIS IS NEW/THIS PART IS FOR DATABASE
+    def insert_data(self) :
+        data = self.get_info()
+        if data is not None :
+            with self.connection.cursor() as cursor :
+                sql = """
+                INSERT INTO clinics (clinic_id , capacity ,  service , address , clinic_password , clinic_contact_info ) 
+                VALUES (%s , %s , %s , %s , %s , %s)
+                """
+                cursor.execute(sql , (data['clinic_id'] , data['capacity'] , data['service'] , data['address'] , data['clinic_password'] , data['clinic_contact_info']))
+            self.connection.commit()
+    # UNTIL HERE
   
 
     def insert_new_appointments_data(self) :
