@@ -25,9 +25,9 @@ try:
             clinic_id INT PRIMARY KEY,
             capacity INT,
             service VARCHAR(255),
-            clinic_contact_info VARCHAR(255),
             address VARCHAR(255),
             clinic_password VARCHAR(255)
+            clinic_contact_info VARCHAR(255)
     )
         """
        cursor.execute(sql)
@@ -41,6 +41,7 @@ try:
             patient_contact_info VARCHAR(255),
             age INT,
             insurance VARCHAR(255)
+            
     )
         """
         cursor.execute(sql)
@@ -49,7 +50,6 @@ try:
      
         sql = """
         CREATE TABLE appointments (
-            appointment_id INT AUTO_INCREMENT PRIMARY KEY,
             clinic_id INT,
             patient_national_code INT,
             reserved_appointments INT,
