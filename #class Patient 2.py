@@ -51,10 +51,9 @@ class Patient :
         if patient_national_code in Patient.all_patient:
             if Patient.all_patient[patient_national_code].password_type != 'permanent':
                 print(f'Your temporary password is {Patient.all_patient[patient_national_code].patient_password}')
-                if Patient.all_patient[patient_national_code].patient_password == password:
-                   return print('Login successfully')
-                else:
-                   return print('Password is wrong')
+                
+                return print('Login successfully')
+                
             else:
                 if Patient.all_patient[patient_national_code].patient_password == password:
                     return print('Login successfully')
