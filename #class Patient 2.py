@@ -63,7 +63,7 @@ class Patient :
         else:
             return print('This national code does not exist in our database and you need signing up.')
         
-    # THIS IS NEW/THIS PART IS FOR DATABASE
+    
     def insert_data(self):
      data = self.get_info()
      if data is not None:
@@ -83,5 +83,18 @@ class Patient :
                 val = (data['patient_natinal_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_password'])
                 cursor.execute(sql, val)
                 self.connection.commit()
-    # UNTIL HERE
-
+                
+                
+    def execute_query(self, query, values):
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query, values)
+                return cursor.fetchall()  # Return all rows of the result
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        
+    
+    def select_patient_info(self, patient_national_code):
+        query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients WHERE patient_national_code GROUP BY patient_national_code = %s"
+        values = (patient_national_code,)
+        return self.execute_query(query, values)
