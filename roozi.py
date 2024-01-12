@@ -13,8 +13,6 @@ def generate_password(length) :
     random_string = ''.join(random.choice(characters) for _ in range(length))
     return random_string
 
-
-
 class Patient :
 
     all_patient = {}
@@ -99,15 +97,10 @@ class Patient :
                 cursor.execute(sql, val)
                 self.connection.commit()
     # UNTIL HERE
-
-  
-        
-        
+      
 #sign in and login patients with using sign_in and log_in methods using this test object that created in the code :
 #example : p.sign_in("bla bla bla" ... )
 p = Patient("0000000000" , "test" , "00000000" , "0" , "0" , "0" , "yes" , "0000" ,"0" , "0")
-
-
 
 connection = pymysql.connect(host = 'localhost' ,
                              user = 'root' ,
