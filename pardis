@@ -90,12 +90,6 @@ class Secretary :
         return appointment_obj.remove_appointment(Patient.patient_name)
 
         
-    
-    
-    
-
-
-
 
 
 
