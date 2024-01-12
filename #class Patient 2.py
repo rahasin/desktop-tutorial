@@ -94,7 +94,7 @@ class Patient :
             print(f"An error occurred: {e}")
         
     
-    def select_patient_info(self, patient_national_code):
+    def select_patient_info(self, patient_national_code, patient_name, age, insurance, patient_contact_info):
         query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients WHERE patient_national_code GROUP BY patient_national_code = %s"
-        values = (patient_national_code,)
+        values = (patient_national_code, patient_name, age, insurance, patient_contact_info)
         return self.execute_query(query, values)
