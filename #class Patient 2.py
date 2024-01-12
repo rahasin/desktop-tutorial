@@ -84,16 +84,21 @@ class Patient :
                 self.connection.commit()
                 
                 
-    def execute_query(self, query, values):
+    def execute_query(self, query, values=None):
         try:
             with self.connection.cursor() as cursor:
+              if values is None:
+                cursor.execute(query)
+              else:
                 cursor.execute(query, values)
-                return cursor.fetchall()  # Return all rows of the result
+            return cursor.fetchall()  # Return all rows of the result
         except Exception as e:
-            print(f"An error occurred: {e}")
+           print(f"An error occurred: {e}")
+
+
         
     
     def select_patient_info(self, patient_national_code, patient_name, age, insurance, patient_contact_info):
-        query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients WHERE patient_national_code GROUP BY patient_national_code = %s"
+        query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients WHERE patient_national_code ORDER BY patient_national_code = %s"
         values = (patient_national_code, patient_name, age, insurance, patient_contact_info)
         return self.execute_query(query, values)
