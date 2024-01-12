@@ -19,35 +19,35 @@ class Patient :
 
     all_patient = {}
 
-    def __init__(self , patient_natinal_code , patient_name , patient_contact_info , age , insurance , illness_history , fixed_password , one_time_password , appointment_obj , connection):
+    def __init__(self , patient_natinal_code , patient_name , patient_contact_info , age , insurance , illness_history , permanent_password , temporary_password , appointment_obj , connection):
         self.patient_natinal_code = patient_natinal_code
         self.patient_name = patient_name
         self.patient_contact_info = patient_contact_info
         self.age = age
         self.insurance = insurance
         self.illness_history = illness_history
-        self.fixed_password = fixed_password
-        self.one_time_password = one_time_password
+        self.permanent_password = permanent_password
+        self.temporary_password = temporary_password
         self.appointment_obj = appointment_obj  # This should be an instance of the Appointment class
         self.connection = connection
 
-    def sign_in(self , patient_national_code , patient_name , patient_contact_info , age , insurance , illness_history , one_time_password , appointment_obj , connection) :
+    def sign_in(self , patient_national_code , patient_name , patient_contact_info , age , insurance , illness_history , temporary_password , appointment_obj , connection) :
         if patient_national_code not in Patient.all_patient :
-            if one_time_password == 'No' : 
+            if temporary_password == 'No' : 
                Patient.all_patient[patient_national_code] = Patient(patient_national_code , patient_name , patient_contact_info , age , insurance , illness_history , generate_password(10) , 'No' , appointment_obj , connection)
-            elif one_time_password == 'Yes' : 
+            elif temporary_password == 'Yes' : 
                 Patient.all_patient[patient_national_code] = Patient(patient_national_code , patient_name , patient_contact_info , age , insurance , illness_history , generate_password(10) , 'Yes' , appointment_obj , connection)
         else : 
             print('This name is already exist in our database')
 
     def log_in(self , patient_national_code , password) : 
         if patient_national_code in Patient.all_patient : 
-            if Patient.all_patient[patient_national_code].one_time_password == 'No':
-                if Patient.all_patient[patient_national_code].password == password : 
+            if Patient.all_patient[patient_national_code].temporary_password == 'No':
+                if Patient.all_patient[patient_national_code].permanent_password == password : 
                     print('login succesfully')
                 else : 
                     print('password is wrong')
-            elif Patient.all_patient[patient_national_code].one_time_password == 'Yes':
+            elif Patient.all_patient[patient_national_code].temporary_password == 'Yes':
                 print(f'Your one-time password is {generate_password(10)}')
                 print('Login succesfully')
         else : 
@@ -63,7 +63,7 @@ class Patient :
     def get_info(self):
         if len(self.patient_natinal_code) != 10:
             print("national code is incorrect")
-        elif len(self.fixed_password) < 8 or not any (c.isdigit for c in self.fixed_password) :
+        elif len(self.permanent_password) < 8 or not any (c.isdigit for c in self.permanent_password) :
             print('The password is weak.')
         elif len(self.patient_contact_info) != 8 :
             print("this phone number is incorrect")
@@ -73,33 +73,32 @@ class Patient :
             "patient_contact_info" : self.patient_contact_info,
             "patient_age" : self.age,
             "patient_insurance" : self.insurance,
-            "patient_illness_history" : self.illness_history,
-            "patient_fixed_password" : self.fixed_password,
-            "patient_one_time_password" : self.one_time_password,
+            
+            "patient_permanent_password" : self.permanent_password,
+            "patient_temporary_password" : self.temporary_password,
         }
         
-    cursor = pymysql.Connection.cursor()
-    
+    # THIS IS NEW/THIS PART IS FOR DATABASE
     def insert_data(self):
      data = self.get_info()
      if data is not None:
         with self.connection.cursor() as cursor:
             # Check if the patient already exists in the 'patients' table
             sql = "SELECT * FROM patients WHERE patient_national_code = %s"
-            val = (data['patient_natinal_code'],)
-            cursor.execute(sql, val)
+            val = (data['patient_natinal_code'])
+            cursor.execute(sql , val)
             result = cursor.fetchone()
 
             # If the patient does not exist, insert the new data
-            if result is None:
+            if result is None :
                 sql = """
-                INSERT INTO patients (patient_national_code, patient_name, patient_contact_info, age, insurance, illness_history, fixed_password, one_time_password) 
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_permanent_password) 
+                VALUES (%s , %s , %s , %s , %s , %s , %s , %s)
                 """
-                val = (data['patient_natinal_code'], data['patient_name'], data['patient_contact_info'], data['patient_age'], data['patient_insurance'], data['patient_illness_history'], data['patient_fixed_password'], data['patient_one_time_password'])
+                val = (data['patient_natinal_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_permanent_password'])
                 cursor.execute(sql, val)
                 self.connection.commit()
-
+    # UNTIL HERE
 
   
         
