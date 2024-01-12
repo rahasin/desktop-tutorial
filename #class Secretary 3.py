@@ -32,7 +32,11 @@ class Secretary:
             print(f"An error occurred: {e}")
 
    def select_each_clinic_info(self, clinic_id):
-        query = "SELECT  clinic_id, service, capacity, reserved_appointments FROM clinics WHERE clinic_id = ? ORDER BY clinic_id"
+        query = f"""SELECT  clinic_id, service, capacity, reserved_appointments 
+        FROM clinics 
+        WHERE clinic_id = ? 
+        ORDER BY clinic_id
+        """
         values = (clinic_id,)
         return self.execute_query(query, values)
 
