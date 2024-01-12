@@ -1,5 +1,8 @@
 import random
 import string
+from tkinter import _Cursor
+from unittest import result
+from colorama import Cursor
 import pymysql
 
 #password is a "lowercase + digit" string with length 10
@@ -10,26 +13,7 @@ def generate_password(length) :
     random_string = ''.join(random.choice(characters) for _ in range(length))
     return random_string
 
-class People :
 
-#This class generate several objects from diffrent classes
-     
-    all_people = {}
-
-    def __init__(self , connection) : 
-        self.connection = connection
-
-    # a get_info function should be created, returning a dictionary of all the necessary info like the other classes
-    def insert_data_patient(self):
-        data = self.get_info()
-        if data is not None:    
-            with self.conn.cursor() as cursor:
-                sql = """
-                INSERT INTO patients (patient_natinal_code , patient_name , patient_contact_info , age , insurance , illness_history)
-                VALUES (%s , %s , %s , %s , %s , %s , %s)
-                """
-                cursor.execute(sql , (data['patient_natinal_code'] , data['patient_name'] , data['patient_contact_info'] , data['age'] , data['insurance'] , data['illness_history']))
-            self.connection.commit()
 
 class Patient :
 
@@ -76,18 +60,6 @@ class Patient :
     def cancel_appointment(self , appointment_obj):
         return appointment_obj.remove_appointment(self.name)
 
-    # a get_info function should be created, returning a dictionary of all the necessary info like the other classes
-    def insert_data(self):
-        data = self.get_info()
-        if data is not None:
-            with self.connection.cursor() as cursor:
-                sql = """
-                INSERT INTO secretary (reserved_appointments , capacity, patient_natinal_code , patient_name , patient_contact_info) 
-                VALUES (%s, %s, %s, %s, %s)
-                """
-                cursor.execute(sql , (self.appointment_obj.reserved_appointments , self.appointment_obj.capacity , data['patient_natinal_code'] , data['patient_name'] , data['patient_contact_info']))
-            self.connection.commit()
-
     def get_info(self):
         if len(self.patient_natinal_code) != 10:
             print("national code is incorrect")
@@ -105,9 +77,38 @@ class Patient :
             "patient_fixed_password" : self.fixed_password,
             "patient_one_time_password" : self.one_time_password,
         }
+        
+    cursor = pymysql.Connection.cursor()
+    
+    def insert_data(self):
+     data = self.get_info()
+     if data is not None:
+        with self.connection.cursor() as cursor:
+            # Check if the patient already exists in the 'patients' table
+            sql = "SELECT * FROM patients WHERE patient_national_code = %s"
+            val = (data['patient_natinal_code'],)
+            cursor.execute(sql, val)
+            result = cursor.fetchone()
+
+            # If the patient does not exist, insert the new data
+            if result is None:
+                sql = """
+                INSERT INTO patients (patient_national_code, patient_name, patient_contact_info, age, insurance, illness_history, fixed_password, one_time_password) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                val = (data['patient_natinal_code'], data['patient_name'], data['patient_contact_info'], data['patient_age'], data['patient_insurance'], data['patient_illness_history'], data['patient_fixed_password'], data['patient_one_time_password'])
+                cursor.execute(sql, val)
+                self.connection.commit()
+
+
+  
+        
+        
 #sign in and login patients with using sign_in and log_in methods using this test object that created in the code :
 #example : p.sign_in("bla bla bla" ... )
 p = Patient("0000000000" , "test" , "00000000" , "0" , "0" , "0" , "yes" , "0000" ,"0" , "0")
+
+
 
 connection = pymysql.connect(host = 'localhost' ,
                              user = 'root' ,

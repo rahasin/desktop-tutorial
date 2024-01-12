@@ -24,10 +24,10 @@ try:
        CREATE TABLE clinics (
             clinic_id INT PRIMARY KEY,
             capacity INT,
-            service VARCHAR(255),
-            address VARCHAR(255),
-            clinic_password VARCHAR(255)
-            clinic_contact_info VARCHAR(255)
+            service VARCHAR(255) NOT NULL,
+            address VARCHAR(255) NOT NULL,
+            clinic_password VARCHAR(255) NOT NULL,
+            clinic_contact_info VARCHAR(255) NOT NULL
     )
         """
        cursor.execute(sql)
@@ -36,12 +36,12 @@ try:
      
         sql = """
         CREATE TABLE patients (
-            patient_national_code INT PRIMARY KEY,
-            patient_name VARCHAR(255),
-            patient_contact_info VARCHAR(255),
+            patient_national_code INT PRIMARY KEY NOT NULL,
+            patient_name VARCHAR(255) NOT NULL,
+            patient_contact_info VARCHAR(255) NOT NULL,
             age INT,
-            insurance VARCHAR(255)
-            
+            insurance VARCHAR(255) ,
+            patient_password VARCHAR(255) 
     )
         """
         cursor.execute(sql)

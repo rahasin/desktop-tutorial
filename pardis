@@ -53,6 +53,8 @@ class Clinic:
 
 #clinic = Clinic(1 , 'iran' , '44649499' , 'njsdasbfhqw' , '25' , 'goosh')
 
+
+
 class Secretary :
 
     all_secretary = {}
@@ -86,6 +88,8 @@ class Secretary :
 
     def cancel_appointment(self , appointment_obj):
         return appointment_obj.remove_appointment(Patient.patient_name)
+
+        
     
     
     
