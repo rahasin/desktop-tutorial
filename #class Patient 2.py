@@ -96,9 +96,24 @@ class Patient :
            print(f"An error occurred: {e}")
 
 
-        
     
     def select_capacity_info(self, clinic_id):
-        query = "SELECT clinic_id, service, address, capacity FROM clinics ORBER BY capacity" 
+        query = f"""
+        SELECT clinic_id, service, address, capacity 
+        FROM clinics 
+        ORBER BY capacity
+        """
         values = (clinic_id,)
+        return self.execute_query(query, values)
+    
+  
+    
+    def select_reserved_appointments_info(self, patient_national_code):
+        query = f"""
+        SELECT patients.patient_national_code, patients.patient_name, clinics.clinic_id, clinics.reserved_appointments
+        FROM patients
+        INNER JOIN clinics ON patients.reserved_appointments = clinics.reserved_appointments
+        WHERE patients.patient_national_code = {patient_national_code}
+        """
+        values = (patient_national_code)
         return self.execute_query(query, values)
