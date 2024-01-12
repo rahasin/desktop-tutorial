@@ -1,7 +1,8 @@
 import pymysql
+import requests
 
-class Clinic :
-    def __init__ (self , clinic_id , address , clinic_contact_info , clinic_password , capacity , service , connection) :
+class Clinic:
+    def __init__(self, clinic_id, address, clinic_contact_info, clinic_password, capacity, service, connection):
         self.clinic_id = clinic_id
         self.address = address
         self.clinic_contact_info = clinic_contact_info
@@ -10,21 +11,19 @@ class Clinic :
         self.service = service
         self.connection = connection
 
-
-    def get_info (self) :
-        if len(self.clinic_contact_info) != 8 :
+    def get_info(self):
+        if len(self.clinic_contact_info) != 8:
             print('The phone number is incorrect')
-        else :
+        else:
             return {
-                'clinic_id': self.clinic_id ,
-                'address': self.address ,
-                'clinic_contact_info': self.clinic_contact_info ,
-                'clinic_password': self.clinic_password ,
-                'capacity': self.capacity ,
+                'clinic_id': self.clinic_id,
+                'address': self.address,
+                'clinic_contact_info': self.clinic_contact_info,
+                'clinic_password': self.clinic_password,
+                'capacity': self.capacity,
                 'service': self.service
             }
-    
-    
+
     def insert_data(self) :
         data = self.get_info()
         if data is not None :
@@ -39,27 +38,30 @@ class Clinic :
 
 
 
-class Secretary :
-    def __init__ (self , secretary_name , clinic_id , clinic_password , appointment):
-        self.secretary_name = secretary_name
-        self.clinic_password = clinic_password
-        self.clinic_id = clinic_id
-        self.appointment = appointment
+#clinic = Clinic(1 , 'iran' , '44649499' , 'njsdasbfhqw' , '25' , 'goosh')
 
+class Secretary :
+    def __init__ (self , secretary_name , clinic) :
+        self.secretary_name = secretary_name
+        self.clinic_password = clinic.clinic_password
+        self.clinic_id = clinic.clinic_id
+        
+    def set_appointmnet_obj(self , appoinment_obj) :
+        self.appointment_obj = appoinment_obj
 
     def get_info(self) :
         return {
             'secretary_name': self.secretary_name ,
-            'clinic_name': self.clinic_name , 
+            'clinic_id': self.clinic_id , 
             'clinic_password': self.clinic_password
         }
     # appointment_obj here is an istanse of class appointment:
     # the Patient word refers to roozi file
     def book_appointment(self , appointment_obj):
-        return appointment_obj.add_appointment(Patient.name)
+        return appointment_obj.add_appointment(Patient.patient_name)
 
     def cancel_appointment(self , appointment_obj):
-        return appointment_obj.remove_appointment(Patient.name)
+        return appointment_obj.remove_appointment(Patient.patient_name)
     
     
     
@@ -68,36 +70,45 @@ class Secretary :
 
 
 
-class Appointment :
-    def __init__(self , Clinic , patient_obj , connection) :
-        self.service = Clinic.service
-        self.capacity = Clinic.capacity
-        self.reserved_appointment = 0
+
+
+class Appointment:
+    def __init__(self, clinic, patient_obj, connection):
+        self.service = clinic.service
+        self.capacity = clinic.capacity
         self.appointments = []
         self.patient_obj = patient_obj  # This should be an instance of the Patient class
-        self.clinic_id = Clinic.clinic_id
-        self.clinic_contact_info = Clinic.clinic_contact_info
-        self.address = Clinic.address
+        self.clinic_id = clinic.clinic_id
+        self.clinic_contact_info = clinic.clinic_contact_info
+        self.address = clinic.address
         self.connection = connection
 
-#از آنجایی که ما فقط ظرفیت برایمان مهم هست و اطلاعات خاصی زا نمی‌خواهیم وارد قسمت نوبت دهی‌مان بکنیم اینجا دیگه لیستی تعریف نمی‌کنیم.
-    def add_appointment(self , appointment) :
-        if self.capacity > 0 :
+    def add_appointment(self, appointment):
+        if self.capacity > 0:
             self.capacity -= 1
-            self.reserved_appointment += 1
-            self.appointments.append(appointment) #write patients names into the list.
-            return 'Appointment added successfully!'
+            self.appointments.append(appointment)  # write patients names into the list.
+
+            # Send a POST request to the API
+            data = {
+                'code': self.clinic_id,
+                'reserved': '1'
+            }
+            url = 'http://127.0.0.1:5000/reserve'
+            response = requests.post(url, data=data)
+
+            # Check the status of the request
+            if response.status_code == 200:
+                # Convert the response to JSON
+                result = response.json()
+
+                # Print the received information
+                print(result)
+                return 'Appointment added successfully!'
+            else:
+                print('The request encountered an error')
+                return 'Failed to add appointment due to an error with the API.'
         else:
             return 'No capacity left!'
-
-    def remove_appointment(self , appointment) :
-        if appointment in self.add_appointment :
-            self.capacity += 1
-            self.reserved_appointment -= 1
-            self.appointments.remove(appointment) #remove the name of patient from the list.
-            return 'Appointment removed successfully!'
-        else:
-            return 'Appointment not found!'
         
     
     def insert_previous_appointments_data(self) :
@@ -127,3 +138,16 @@ connection = pymysql.connect(host = 'localhost' ,
                              user = 'root' ,
                              password = 'APterm3r@r@8304' ,
                              database = 'APclinics')
+
+url = 'http://127.0.0.1:5000/slots'
+response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()
+    for clinic_id , capacity in data.items():
+        clinic = Clinic(clinic_id , 'address' , 'contact_info' , 'password' , capacity , 'service' , connection)
+        print(clinic.get_info())
+else:
+    print('Request failed') 
+
+connection.close()
