@@ -99,6 +99,6 @@ class Patient :
         
     
     def select_patient_info(self, patient_national_code, patient_name, age, insurance, patient_contact_info):
-        query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients WHERE patient_national_code ORDER BY patient_national_code = %s"
-        values = (patient_national_code, patient_name, age, insurance, patient_contact_info)
+        query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients ORDER BY patient_national_code"
+        values = (patient_national_code,)
         return self.execute_query(query, values)
