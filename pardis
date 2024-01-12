@@ -1,7 +1,20 @@
 import pymysql
 import requests
 
+
+#هرچی ورودی برای کلینک و منشی تعریف میکنیم رو حتما توی دیکشنری هایی که برای کلس کلینک و منشی اد شده، اضافه کنید.
+#example : clinice_milad = Clinic(12 , "tehran" , ....)
+#and :     Clinic.all_clinic[clinid_id] = clinice_milad
+# و برای منشی هم به همین شکل. اگه به نظرتون اضافست یا ایراد داره بگید به من. که تغییرش بدیم. چون من لاگین های
+# منشی و کلینیکو بر این حساب زدم که اطلاعاتشون توی این دیکشنری ها موجود باشه.
+# روزبه
+
+
+
 class Clinic:
+
+    all_clinic = {}
+
     def __init__(self, clinic_id, address, clinic_contact_info, clinic_password, capacity, service, connection):
         self.clinic_id = clinic_id
         self.address = address
@@ -41,11 +54,22 @@ class Clinic:
 #clinic = Clinic(1 , 'iran' , '44649499' , 'njsdasbfhqw' , '25' , 'goosh')
 
 class Secretary :
+
+    all_secretary = {}
+
     def __init__ (self , secretary_name , clinic) :
         self.secretary_name = secretary_name
         self.clinic_password = clinic.clinic_password
         self.clinic_id = clinic.clinic_id
-        
+
+    def log_in_secretary(self , secretary_name , clinic_id ):
+        if secretary_name not in Secretary.all_secretary : 
+            print("the username/secretary name is wrong")
+        elif self.clinic_password != Clinic.all_clinic[clinic_id].clinic_password : 
+            print("password is wrong")
+        else : 
+            print("login succesfully")
+
     def set_appointmnet_obj(self , appoinment_obj) :
         self.appointment_obj = appoinment_obj
 
