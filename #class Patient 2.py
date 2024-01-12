@@ -51,10 +51,9 @@ class Patient :
         if patient_national_code in Patient.all_patient:
             if Patient.all_patient[patient_national_code].password_type != 'permanent':
                 print(f'Your temporary password is {Patient.all_patient[patient_national_code].patient_password}')
-                if Patient.all_patient[patient_national_code].patient_password == password:
-                   return print('Login successfully')
-                else:
-                   return print('Password is wrong')
+                
+                return print('Login successfully')
+                
             else:
                 if Patient.all_patient[patient_national_code].patient_password == password:
                     return print('Login successfully')
@@ -62,5 +61,39 @@ class Patient :
                     return print('Password is wrong')
         else:
             return print('This national code does not exist in our database and you need signing up.')
+        
+    
+    def insert_data(self):
+     data = self.get_info()
+     if data is not None:
+        with self.connection.cursor() as cursor:
+            # Check if the patient already exists in the 'patients' table
+            sql = "SELECT * FROM patients WHERE patient_national_code = %s"
+            val = (data['patient_natinal_code'])
+            cursor.execute(sql , val)
+            result = cursor.fetchone()
 
-
+            # If the patient does not exist, insert the new data
+            if result is None :
+                sql = """
+                INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_password) 
+                VALUES (%s , %s , %s , %s , %s , %s , %s , %s)
+                """
+                val = (data['patient_natinal_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_password'])
+                cursor.execute(sql, val)
+                self.connection.commit()
+                
+                
+    def execute_query(self, query, values):
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query, values)
+                return cursor.fetchall()  # Return all rows of the result
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        
+    
+    def select_patient_info(self, patient_national_code, patient_name, age, insurance, patient_contact_info):
+        query = "SELECT patient_national_code, patient_name, age, insurance, patient_contact_info FROM patients WHERE patient_national_code GROUP BY patient_national_code = %s"
+        values = (patient_national_code, patient_name, age, insurance, patient_contact_info)
+        return self.execute_query(query, values)
