@@ -8,6 +8,5 @@ class Clinic:
         self.clinic_password = clinic_password
         self.capacity = capacity
         self.service = service
-        
 
     
