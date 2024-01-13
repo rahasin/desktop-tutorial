@@ -19,4 +19,30 @@ class Doctor:
       else:
          return print('No clinic exists with this id.')
       
-    #here another function must be added such as get database/table.
+      
+    def execute_query(self, query, values=None):
+       try:
+           with self.connection.cursor() as cursor:
+                if values is None:
+                    cursor.execute(query)
+                else:
+                    cursor.execute(query, values)
+           return cursor.fetchall()  # Return all rows of the result
+       except Exception as e:
+            print(f"An error occurred: {e}")
+
+    def select_each_clinic_info(self, clinic_id):
+        query = f"""
+        SELECT  clinic_id, service, capacity, reserved_appointments 
+        FROM clinics 
+        WHERE clinic_id = ? 
+        ORDER BY clinic_id
+        """
+        values = (clinic_id,)
+        return self.execute_query(query, values)
+
+doctor = Doctor()
+if doctor.enter_code():
+    clinic_id = doctor.choose_clinic()
+    clinic_info = doctor.select_each_clinic_info(clinic_id)
+    print(clinic_info)
