@@ -152,3 +152,60 @@ if doctor.enter_code():
     clinic_id = doctor.choose_clinic()
     clinic_info = doctor.select_each_clinic_info(clinic_id)
     print(clinic_info)
+
+
+
+
+
+
+#doctor sql code: 
+def execute_query(self, query, values=None):
+       try:
+           with self.connection.cursor() as cursor:
+                if values is None:
+                    cursor.execute(query)
+                else:
+                    cursor.execute(query, values)
+           return cursor.fetchall()  # Return all rows of the result
+       except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+#if the join is needed 
+def select_each_clinic_info(self, clinic_id):
+        query = """
+        SELECT 
+        patient_national_code, 
+        patient_name, 
+        patient_contact_info, 
+        patient_age, 
+        patient_insurance, 
+        patients_reserved_appointments
+        FROM patients 
+        WHERE clinic_id = ? AND 
+        patients_reserved_appointments > 0 
+        """
+
+        values = (clinic_id,)
+        return self.execute_query(query, values)
+    
+#if the join is needed
+def select_each_patient_info(self, clinic_id, patient_national_code):
+    sql_query = """
+    SELECT 
+    patient_national_code, 
+    patient_name, 
+    patient_contact_info, 
+    patient_age, 
+    patient_insurance, 
+    patients_reserved_appointments
+    FROM patients 
+    WHERE clinic_id = %s AND 
+    patients_reserved_appointments > 0 AND
+    patient_national_code = %s
+    """
+
+    values = (clinic_id, patient_national_code)
+    return self.execute_query(sql_query, values)
+    
+    

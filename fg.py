@@ -22,7 +22,7 @@ try:
     with connection.cursor() as cursor:
        sql = """
        CREATE TABLE clinics (
-            clinic_id INT,
+            clinic_id INT PRIMARY KEY,
             capacity INT,
             service VARCHAR(255) NOT NULL,
             reserved_appointments INT PRIMARY KEY,
@@ -43,8 +43,9 @@ try:
             patient_age INT,
             patient_insurance VARCHAR(255) ,
             patient_permanent_password VARCHAR(255),
-            reserved_appointments INT,
-            FOREIGN KEY (reserved_appointments) REFERENCES clinics(reserved_appointments)
+            patients_reserved_appointments INT,
+            clinic_id INT
+            FOREIGN KEY (clinic_id) REFERENCES clinics(clinic_id)
     )
         """
         cursor.execute(sql)
