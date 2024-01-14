@@ -3,10 +3,14 @@ from Appointment import Appointment
 from Clinic import Clinic
 from Doctor import Doctor
 from Patient import Patient
-
+from Patient import generate_password()
+import string
+import random
 def logout():
         print('You have been logged out.')
         return None
+
+
 
 def main():
     while True:
@@ -17,8 +21,24 @@ def main():
         position = int(input("Please choose your position: "))
 
         if position == 1:
-            pass
+            patient = Patient()
+            while True:
+                print('1. Sign in')
+                print('2. Log in')
+                print('3. Log out')
+                option = int(input('Please choose an option: '))
+                if option == 1:
+                    patient.get_info()
+                    patient.sign_in()
+                    patient.insert_data()
+                if option == 2:
+                    pass
+                    patient.log_in()
+                if option == 3:
+                    logout()
+                    break
 
+                
 
         elif position == 2:
             secretary = Secretary()

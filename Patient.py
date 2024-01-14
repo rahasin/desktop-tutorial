@@ -18,21 +18,31 @@ class Patient :
         self.age = age
         self.insurance = insurance
         self.password_type = password_type
-        if password_type == 'permanent':
-            self.patient_password = input("Enter your permanent password: ")
-        elif password_type == 'temporary':
-            self.patient_password = generate_password(6)
+        
         
 
     def get_info (self):
+
+        self.patient_national_code = input("Enter your national code: ")
+        self.patient_contact_info = input("Enter your contact info: ")
+        self.age = int(input("Enter your age: "))
+        self.insurance = input("Do you have insurance (Yes/No): ")
+        self.password_type = int(input("Choose a password type:"))
+        print('1. Temporary')
+        print('2. Permanent')
+        if self.password_type == 1:
+                generate_password(6)
+        if self.password_type == 2:
+                patient_password = input('Enter your password: ')
+
         if len(self.patient_national_code) != 10:
-            return print("national code is incorrect")
-        elif self.password_type == 'permanent':
-            if len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password):
-                    return print('The password is weak.')
+            print("national code is incorrect")
+        
+        if len(patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password):
+                    print('The password is weak.')
         elif len(self.patient_contact_info) != 8 :
-            return print("this phone number is incorrect")
-        return {
+            print("this phone number is incorrect")
+        self.patient_info = {
             "patient_national_code" : self.patient_national_code,
             "patient_name" : self.patient_name,
             "patient_contact_info" : self.patient_contact_info,
@@ -40,27 +50,29 @@ class Patient :
             "patient_insurance" : self.insurance,
             "patient_password" : self.patient_password
         }
+
+        return self.patient_info
     
     def sign_in(self):
         if self.patient_national_code not in Patient.all_patient:
             Patient.all_patient[self.patient_national_code] = self
         else:
-            return print('This national code already exists in our database')
+            print('This national code already exists in our database')
         
     def log_in(self, patient_national_code, password):
+        patient_national_code = input('Enter your national code.')
         if patient_national_code in Patient.all_patient:
-            if Patient.all_patient[patient_national_code].password_type != 'permanent':
-                print(f'Your temporary password is {Patient.all_patient[patient_national_code].patient_password}')
-                
-                return print('Login successfully')
+            if Patient.all_patient[patient_national_code].password_type == 1:
+                print(f'Your temporary password is {generate_password(6)}')
+                print('Login successfully')
                 
             else:
                 if Patient.all_patient[patient_national_code].patient_password == password:
-                    return print('Login successfully')
+                    print('Login successfully')
                 else:
-                    return print('Password is wrong')
+                    print('Password is wrong')
         else:
-            return print('This national code does not exist in our database and you need signing up.')
+            print('This national code does not exist in our database and you need signing up.')
         
     
     def insert_data(self):
