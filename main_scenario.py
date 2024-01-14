@@ -13,11 +13,36 @@ def main():
         print('1. Patient')
         print('2. Secretary')
         print('3. Doctor')
+        print('4. Logout')
         position = int(input("Please choose your position: "))
+
         if position == 1:
             pass
+
+
         elif position == 2:
-            pass
+            secretary = Secretary()
+            while True:
+                if not secretary.enter_code():
+                    break
+                clinic_id = secretary.choose_clinic()
+                secretary.select_each_clinic_info(clinic_id)
+                # we can change the place of upper line with the prints!
+                print ('1. Reserving an appointment')
+                print('2. Canceling an appointment')
+                print('3. Logout')
+                option = int(input('Please choose an option: '))
+                if option == 1:
+                    pass
+                elif option == 2:
+                    pass
+                elif option == 3:
+                    logout()
+                    break
+                else :
+                    print("Invalid option. Please try again.")
+
+
         elif position == 3:
             doctor = Doctor()
             while True:
@@ -36,10 +61,14 @@ def main():
                         break
                     doctor.select_each_patient_info()
                 elif option == 3:
-                    doctor.logout()
+                    logout()
                     break
                 else:
                     print("Invalid option. Please try again.")
+
+
+        elif position == 4:
+            break
         else:
             print("Invalid option. Please try again.")
 
@@ -63,34 +92,3 @@ def main():
     
     
     
-    
-    # Get user input to determine which character they want to be
-    character_choice = input("Choose a character (Doctor, Patient, Secretary): ")
-    
-    if character_choice.lower() == "doctor":
-        doctor = Doctor()
-        if doctor.enter_code():
-            clinic_id = doctor.choose_clinic()
-            clinic_info = doctor.select_each_clinic_info(clinic_id)
-            print(clinic_info)
-            
-    elif character_choice.lower() == "patient":
-        patient_national_code = input("Enter your national code: ")
-        patient_name = input("Enter your name: ")
-        patient_contact_info = input("Enter your contact info: ")
-        age = input("Enter your age: ")
-        insurance = input("Do you have insurance (yes/no): ")
-        password_type = input("Do you want a permanent or temporary password: ")
-        patient = Patient(patient_national_code, patient_name, patient_contact_info, age, insurance, password_type)
-        patient.sign_in()
-        # Continue with the scenario as the patient
-    elif character_choice.lower() == "secretary":
-        secretary = Secretary()
-        if secretary.enter_code():
-            clinic_id = secretary.choose_clinic()
-            # Continue with the scenario as the secretary
-    else:
-        print("Invalid choice. Please choose Doctor, Patient, or Secretary.")
-
-if __name__ == "__main__":
-    main()
