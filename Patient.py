@@ -11,10 +11,9 @@ def generate_password(length) :
 
 class Patient :
     all_patient = {}
-    def __init__ (self, patient_national_code, patient_name, patient_contact_info, age,insurance, password_type):
+    def __init__ (self, patient_national_code,patient_contact_info,age,insurance,password_type):
         self.connection = create_connection()
         self.patient_national_code = patient_national_code
-        self.patient_name = patient_name
         self.patient_contact_info = patient_contact_info
         self.age = age
         self.insurance = insurance
