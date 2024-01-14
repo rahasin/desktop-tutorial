@@ -67,6 +67,7 @@ class Patient :
                 print('Login successfully')
                 
             else:
+                password = input('Enter your password: ')
                 if Patient.all_patient[patient_national_code].patient_password == password:
                     print('Login successfully')
                 else:
