@@ -9,20 +9,29 @@ class Secretary:
       #here you should add another atribute to make a dictionary for referring each clinic id to each table.
 
    def enter_code(self):
-      code = input("Please enter the secretary special code: ")
-      if code == self.secretary_special_code:
-         return True
-      else:
-         return print('The secretary special code is wrong.')
-      
+      while True:
+         code = input("Please enter the secretary special code: ")
+         if code == self.secretary_special_code:
+            return True
+         else:
+             print('The secretary special code is wrong.')
+             return False
+         
    def choose_clinic(self):
-      clinic_id = int(input('Please choose your clinic id.'))
-      if clinic_id in self.clinic_ids:
-         return clinic_id
-      else:
-         return print('No clinic exists with this id.')
-      
-      
+      while True:
+            try:
+               clinic_id = int(input('Please choose your clinic id.'))
+               if clinic_id in self.clinic_ids:
+                  return clinic_id
+               else:
+                  return print('No clinic exists with this id.')
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+                
+            
+         
+               
+               
    def execute_query(self, query, values=None):
        try:
            with self.connection.cursor() as cursor:
