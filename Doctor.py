@@ -19,13 +19,16 @@ class Doctor:
           return False
       
     def choose_clinic(self):
-        while True:
-            clinic_id = int(input('Please choose your clinic id.'))
-            if clinic_id in self.clinic_ids:
-                return clinic_id
-            else:
-                print('No clinic exists with this id. Please try again.')
-         
+         while True:
+            try:
+                clinic_id = int(input('Please choose your clinic id: '))
+                if clinic_id in self.clinic_ids:
+                    return clinic_id
+                else:
+                    print('No clinic exists with this id. Please try again.')
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+            
       
     def execute_query(self, query, values=None):
        try:
