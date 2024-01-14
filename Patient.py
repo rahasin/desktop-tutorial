@@ -97,23 +97,35 @@ class Patient :
 
 
     
-    def select_capacity_info(self, clinic_id):
-        query = f"""
-        SELECT clinic_id, service, address, capacity 
-        FROM clinics 
-        ORBER BY capacity
+    def select_clinic_capacity_info(self, clinic_id):
+        query = """
+        SELECT 
+        clinic_id,
+        service,
+        address,
+        capacity ,
+        clinic_reserved_appointments,
+        clinic_contact_info
+        FROM clinics
+        WHERE clinic_id = %s
+        GROUP BY clinic_id
         """
         values = (clinic_id,)
         return self.execute_query(query, values)
     
   
     
-    def select_reserved_appointments_info(self, patient_national_code):
-        query = f"""
-        SELECT patients.patient_national_code, patients.patient_name, clinics.clinic_id, clinics.reserved_appointments
-        FROM patients
-        INNER JOIN clinics ON patients.reserved_appointments = clinics.reserved_appointments
-        WHERE patients.patient_national_code = {patient_national_code}
+    def select_patient_reserved_appointments_info(self, patient_national_code):
+        query ="""
+        SELECT 
+        patient_national_code, 
+        patient_name ,
+        clinic_id,
+        patient_reserved_appointments,
+        FROM patients,
+        WHERE patient_reserved_appointments > 0 
+        AND patient_national_code = %s
+        ORDER BY clinic_id
         """
         values = (patient_national_code)
         return self.execute_query(query, values)
