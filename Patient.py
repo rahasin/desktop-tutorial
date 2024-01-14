@@ -1,5 +1,5 @@
 #class Patient
-
+from db_connector import create_connection
 import random
 import string
 import re
@@ -12,6 +12,7 @@ def generate_password(length) :
 class Patient :
     all_patient = {}
     def __init__ (self, patient_national_code, patient_name, patient_contact_info, age,insurance, password_type):
+        self.connection = create_connection()
         self.patient_national_code = patient_national_code
         self.patient_name = patient_name
         self.patient_contact_info = patient_contact_info

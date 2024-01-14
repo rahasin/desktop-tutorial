@@ -25,7 +25,7 @@ try:
             clinic_id INT PRIMARY KEY,
             capacity INT,
             service VARCHAR(255) NOT NULL,
-            reserved_appointments INT PRIMARY KEY,
+            clinic_reserved_appointments INT,
             address VARCHAR(255) NOT NULL,
             clinic_password VARCHAR(255) NOT NULL,
             clinic_contact_info VARCHAR(255) NOT NULL
@@ -37,13 +37,13 @@ try:
      
         sql = """
         CREATE TABLE patients (
-            patient_national_code INT PRIMARY KEY NOT NULL,
+            patient_national_code INT NOT NULL,
             patient_name VARCHAR(255) NOT NULL,
             patient_contact_info VARCHAR(255) NOT NULL,
             patient_age INT,
             patient_insurance VARCHAR(255) ,
             patient_permanent_password VARCHAR(255),
-            patients_reserved_appointments INT,
+            patient_reserved_appointments INT,
             clinic_id INT
             FOREIGN KEY (clinic_id) REFERENCES clinics(clinic_id)
     )

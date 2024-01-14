@@ -1,6 +1,9 @@
 #class Secretary
+from db_connector import create_connection
+
 class Secretary:
    def __init__(self):
+      self.connection = create_connection()
       self.secretary_special_code = 's1234567@c'
       self.clinic_ids = [1,2,3,4,5,6,7]
       #here you should add another atribute to make a dictionary for referring each clinic id to each table.

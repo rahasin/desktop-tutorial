@@ -1,7 +1,10 @@
-#class doctor
+#class Doctor
 from Patient import Patient
+from db_connector import create_connection
+
 class Doctor:
     def __init__(self):
+      self.connection = create_connection()
       self.doctor_special_code = 'd7654321_doc*'
       self.clinic_ids = [1,2,3,4,5,6,7]
       #here you should add another atribute to make a dictionary for referring each clinic id to each table.

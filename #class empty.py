@@ -1,3 +1,5 @@
+#class Pharmacy
+
 class Pharmacy:
     def __init__(self, inventory):
         # Inventory is a dictionary with drug names as keys and quantities as values
