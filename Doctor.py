@@ -53,8 +53,9 @@ class Doctor:
             patient_insurance, 
             patients_reserved_appointments
             FROM patients 
-            WHERE clinic_id = ? AND 
+            WHERE clinic_id = %s AND 
             patients_reserved_appointments > 0 
+            ORDER BY patient_national_code
             """
 
             values = (clinic_id,)
@@ -80,8 +81,7 @@ class Doctor:
         patient_insurance, 
         patients_reserved_appointments
         FROM patients 
-        WHERE patients_reserved_appointments > 0 AND
-        patient_national_code = %s
+        WHERE patient_national_code = %s
         """
 
         values = ( patient_national_code)

@@ -108,7 +108,7 @@ class Patient :
         clinic_contact_info
         FROM clinics
         WHERE clinic_id = %s
-        GROUP BY clinic_id
+        ORDER BY clinic_id ASC
         """
         values = (clinic_id,)
         return self.execute_query(query, values)
