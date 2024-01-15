@@ -26,16 +26,8 @@ class Pharmacy:
         self.inventory[drug] -= 1
 
 # Create an instance of the Pharmacy class
-inventory = {
-    'Tetrahydrozoline': 25,
-    'carbetocin': 15,
-    'Mometasone': 15,
-    'Amoxicillin': 20,
-    'Diclofenac': 30,
-    'Amiodarone': 9,
-    'Articaine': 8
-}
-pharmacy = Pharmacy(inventory)
+
+
 
 # Get the drug information
 #drug = input("Enter the drug: ")

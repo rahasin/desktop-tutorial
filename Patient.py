@@ -11,13 +11,13 @@ def generate_password(length) :
 
 class Patient :
     all_patient = {}
-    def __init__ (self, patient_national_code,patient_contact_info,age,insurance,password_type):
+    def __init__ (self):
         self.connection = create_connection()
-        self.patient_national_code = patient_national_code
-        self.patient_contact_info = patient_contact_info
-        self.age = age
-        self.insurance = insurance
-        self.password_type = password_type
+        #self.patient_national_code = patient_national_code
+        #self.patient_contact_info = patient_contact_info
+        #self.age = age
+        #self.insurance = insurance
+        #self.password_type = password_type
         
         
 
@@ -27,11 +27,12 @@ class Patient :
         self.patient_contact_info = input("Enter your contact info: ")
         self.age = int(input("Enter your age: "))
         self.insurance = input("Do you have insurance (Yes/No): ")
-        self.password_type = int(input("Choose a password type:"))
+        print("Choose a password type:")
         print('1. Temporary')
         print('2. Permanent')
+        self.password_type = int(input('Please choose an option: '))
         if self.password_type == 1:
-                generate_password(6)
+                patient_password = generate_password(6)
         if self.password_type == 2:
                 patient_password = input('Enter your password: ')
 
