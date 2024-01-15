@@ -6,13 +6,13 @@ class Clinic:
     def __init__(self):
         self.connection = create_connection()
         self.additional_info = {
-            "1": {"service": "ophthalmology", "address": "address1", "password": "ab12518maj", "contact": "09123758274"},
-            "2": {"service": "gynecology", "address": "address2", "password": "kj13827kti", "contact": "09194726482"},
-            "3": {"service": "otolaryngology", "address": "address3", "password": "qp02983njh", "contact": "09185746253"},
-            "4": {"service": "general", "address": "address4", "password": "pc01382ooq", "contact": "09109584726"},
-            "5": {"service": "orthopedics", "address": "address5", "password": "br12256pqp", "contact": "09108876543"},
-            "6": {"service": "cardiology", "address": "address6", "password": "pp09892bbu", "contact": "09124837264"},
-            "7": {"service": "dental", "address": "address7", "password": "hq89204nnb", "contact": "09127564728"},
+            "1": {"service": "ophthalmology", "address": "Los Angeles; Beverly Hills", "password": "ab12518maj", "contact": "09123758274"},
+            "2": {"service": "gynecology", "address": "900 Pacific Ave, Everett", "password": "kj13827kti", "contact": "09194726482"},
+            "3": {"service": "otolaryngology", "address": "Harborview, 325 9th Ave, Seattle", "password": "qp02983njh", "contact": "09185746253"},
+            "4": {"service": "general", "address": "Hoyt Ave, Everett", "password": "pc01382ooq", "contact": "09109584726"},
+            "5": {"service": "orthopedics", "address": "45th St, Seattle", "password": "br12256pqp", "contact": "09108876543"},
+            "6": {"service": "cardiology", "address": "Cleveland, Ohio", "password": "pp09892bbu", "contact": "09124837264"},
+            "7": {"service": "dental", "address": "Alderwood Mall Blvd, Lynnwood", "password": "hq89204nnb", "contact": "09127564728"},
            
         }
 
