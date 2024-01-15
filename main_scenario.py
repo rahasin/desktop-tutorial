@@ -235,6 +235,7 @@ def main():
 
         elif position == 2:
             secretary = Secretary()
+            appointment = Appointment()
             while True:
                 if not secretary.enter_code():
                     break
@@ -342,7 +343,8 @@ def main():
             print("Invalid option. Please try again.")
 
         
-    
+if __name__ == "__main__":
+    main()
     
     
     
