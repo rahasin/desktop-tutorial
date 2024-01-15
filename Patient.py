@@ -7,6 +7,7 @@ import re
 def generate_password(length) :
     characters = string.ascii_lowercase + string.digits 
     random_string = ''.join(random.choice(characters) for _ in range(length))
+    print(random_string)
     return random_string
 
 class Patient :
@@ -24,6 +25,7 @@ class Patient :
     def get_info (self):
 
         self.patient_national_code = input("Enter your national code: ")
+        self.patient_name = input("Enter your full name: ")
         self.patient_contact_info = input("Enter your contact info: ")
         self.age = int(input("Enter your age: "))
         self.insurance = input("Do you have insurance (Yes/No): ")
@@ -32,16 +34,16 @@ class Patient :
         print('2. Permanent')
         self.password_type = int(input('Please choose an option: '))
         if self.password_type == 1:
-                patient_password = generate_password(6)
-        if self.password_type == 2:
-                patient_password = input('Enter your password: ')
+                self.patient_password = generate_password(8)
+        elif self.password_type == 2:
+                self.patient_password = input('Enter your password: ')
 
         if len(self.patient_national_code) != 10:
             print("national code is incorrect")
         
-        if len(patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password):
+        if len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password) and self.password_type == 2:
                     print('The password is weak.')
-        elif len(self.patient_contact_info) != 8 :
+        elif len(self.patient_contact_info) != 11 :
             print("this phone number is incorrect")
         self.patient_info = {
             "patient_national_code" : self.patient_national_code,
@@ -69,7 +71,7 @@ class Patient :
         patient_national_code = input('Enter your national code.')
         if patient_national_code in Patient.all_patient:
             if Patient.all_patient[patient_national_code].password_type == 1:
-                print(f'Your temporary password is {generate_password(6)}')
+                print(f'Your temporary password is {generate_password(8)}')
                 print('Log in successfully')
                 return True
                 
