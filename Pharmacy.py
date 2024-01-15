@@ -43,14 +43,14 @@ pharmacy = Pharmacy(inventory)
 while True :
     drug = input(f"Hello! Please Enter the drug name: {pharmacy.inventory.keys()}\n")
     if pharmacy.dispense_drug(drug.lower()):
-        a = int(input("if you want to shop more, enter number 1.\nor if you want to leave, enter anything you want.\n"))
+        a = int(input("1. shop more\nAnything else. Exit"))
         if int(a) != 1 :
             print("Have a nice day.")
             break
         else : 
             pass
     else : 
-        a = int(input("if you want to shop more, enter number 1.\nor if you want to leave, enter anything you want.\n"))
+        a = int(input("1. shop more\nAnything else. Exit"))
         if int(a) != 1 :
             print("Have a nice day.")
             break
