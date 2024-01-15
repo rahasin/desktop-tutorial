@@ -40,19 +40,3 @@ pharmacy = Pharmacy(inventory)
 # Use the Pharmacy instance to dispense the drug
 #pharmacy.dispense_drug(drug)
 
-while True :
-    drug = input(f"Hello! Please Enter the drug name: {pharmacy.inventory.keys()}\n")
-    if pharmacy.dispense_drug(drug.lower()):
-        a = int(input("1. shop more\nAnything else. Exit"))
-        if int(a) != 1 :
-            print("Have a nice day.")
-            break
-        else : 
-            pass
-    else : 
-        a = int(input("1. shop more\nAnything else. Exit"))
-        if int(a) != 1 :
-            print("Have a nice day.")
-            break
-        else : 
-            pass
