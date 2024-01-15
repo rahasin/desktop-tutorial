@@ -291,7 +291,15 @@ def main():
                     print("Invalid option. Please try again.")
 
         elif position == 4:
-            pharmacy = Pharmacy()
+            pharmacy = Pharmacy(inventory = {
+                'Tetrahydrozoline': 25,
+                'carbetocin': 15,
+                'Mometasone': 15,
+                'Amoxicillin': 20,
+                'Diclofenac': 30,
+                'Amiodarone': 9,
+                'Articaine': 8
+            })
             while True :
                 print('1. Tetrahydrozoline')
                 print('2. carbetocin')
