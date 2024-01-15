@@ -27,10 +27,13 @@ class Pharmacy:
 
 # Create an instance of the Pharmacy class
 inventory = {
-    'drug1': 2,
-    'drug2': 20,
-    'drug3': 15,
-    'drug4': 30
+    'Tetrahydrozoline': 25,
+    'carbetocin': 15,
+    'Mometasone': 15,
+    'Amoxicillin': 20,
+    'Diclofenac': 30,
+    'Amiodarone': 9,
+    'Articaine': 8
 }
 pharmacy = Pharmacy(inventory)
 

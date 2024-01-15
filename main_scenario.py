@@ -292,41 +292,41 @@ def main():
         elif position == 4:
             pharmacy = Pharmacy()
             while True :
-                print('1. Drug no.1')
-                print('2. Drug no.2')
-                print('3. Drug no.3')
-                print('4. Drug no.4')
-                print('5. Drug no.5')
-                print('6. Drug no.6')
+                print('1. Tetrahydrozoline')
+                print('2. carbetocin')
+                print('3. Mometasone')
+                print('4. Amoxicillin')
+                print('5. Diclofenac')
+                print('6. Amiodarone')
                 print('7. Drug no.7')
                 print('8. Log out')
                 option7 = int(input('Please Enter the drug name'))
                 if option7 == 1: 
-                    pharmacy.dispense_drug('drug')
+                    pharmacy.dispense_drug('Tetrahydrozoline')
                     logout()
                     break
                 elif option7 == 2:
-                    pharmacy.dispense_drug('drug')
+                    pharmacy.dispense_drug('carbetocin')
                     logout()
                     break
                 elif option7 == 3:
-                    pharmacy.dispense_drug('drug')
+                    pharmacy.dispense_drug('Mometasone')
                     logout()
                     break
                 elif option7 == 4:
-                    pharmacy.dispense_drug('drug')
+                    pharmacy.dispense_drug('Amoxicillin')
                     logout()
                     break
                 elif option7 == 5:
-                    pharmacy.dispense_drug('drug')
+                    pharmacy.dispense_drug('Diclofenac')
                     logout()
                     break
                 elif option7 == 6:
-                    pharmacy.dispense_drug('drug')
+                    pharmacy.dispense_drug('Amiodarone')
                     logout()
                     break
                 elif option7 == 7:
-                    pharmacy.dispense_drug('drug')
+                    pharmacy.dispense_drug('Articaine')
                     logout()
                     break
                 elif option7 == 8:
