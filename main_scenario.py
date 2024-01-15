@@ -3,7 +3,7 @@ from Appointment import Appointment
 from Clinic import Clinic
 from Doctor import Doctor
 from Patient import Patient
-from Patient import generate_password()
+from Patient import generate_password
 import string
 import random
 def logout():
@@ -28,17 +28,84 @@ def main():
                 print('3. Log out')
                 option = int(input('Please choose an option: '))
                 if option == 1:
+                  while True:
                     patient.get_info()
                     patient.sign_in()
                     patient.insert_data()
-                if option == 2:
-                    pass
+                    print('1. Log in')
+                    print('2. Log out')
+                    option2 = int(input('Please choose an option: '))
+                    if option2 == 1:
+                      while True:
+                        patient.log_in()
+                        print('1. Your reserved appointments')
+                        print('2. Available appointments')
+                        print('3. Log out')
+                        option3 = int(input('Please choose an option: '))
+                        if option3 == 1:
+                            while True:
+                                patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
+                                print('1. Available appointments')
+                                print('2. Log out')
+                                option4 = int(input('Please choose an option: '))
+                                if option4 == 1:
+                                  while True:
+                                    clinic_id = int(input('Choose a clinic id'))
+                                    patient.select_clinic_capacity_info(clinic_id)
+                                    print('1. Reserve an appointment')
+                                    print('2. Cancel an appointment')
+                                    print('3. Log out')
+                                    option5 = int(input('Choose an option: '))
+                                    if option5 == 1:
+                                        Appointment.reserve_appointment(clinic_id,patient_national_code = input('Please enter your national code.'))
+                                    elif option5 == 2:
+                                        Appointment.cancel_appointment(clinic_id,patient_national_code=input('Please enter your national code.'))
+                                    elif option5 == 3:
+                                        logout()
+                                        break
+                                    else:
+                                        ("Invalid option. Please try again.")
+                                elif option4 == 2:
+                                    logout()
+                                    break
+                                else:
+                                    print("Invalid option. Please try again.")
+                        elif option3 == 2:
+                            while True:
+                                    clinic_id = int(input('Choose a clinic id'))
+                                    patient.select_clinic_capacity_info(clinic_id)
+                                    print('1. Reserve an appointment')
+                                    print('2. Cancel an appointment')
+                                    print('3. Log out')
+                                    option6 = int(input('Choose an option: '))
+                                    if option6 == 1:
+                                        Appointment.reserve_appointment(clinic_id,patient_national_code=input('Please enter your national code.'))
+                                    elif option6 == 2:
+                                        Appointment.cancel_appointment(clinic_id,patient_national_code=input('Please enter your national code.'))
+                                    elif option6 == 3:
+                                        logout()
+                                        break
+                                    else:
+                                        ("Invalid option. Please try again.")
+                        elif option3 == 3:
+                            logout()
+                            break
+                        else :
+                            print("Invalid option. Please try again.")
+                        
+                    elif option2 == 2:
+                        logout()
+                        break
+                    else:
+                        print("Invalid option. Please try again.")
+                elif option == 2:
                     patient.log_in()
-                if option == 3:
+                elif option == 3:
                     logout()
                     break
+                else:
+                    print("Invalid option. Please try again.")
 
-                
 
         elif position == 2:
             secretary = Secretary()
