@@ -6,13 +6,13 @@ class Clinic:
     def __init__(self):
         self.connection = create_connection()
         self.additional_info = {
-            "1": {"service": "service1", "address": "address1", "password": "password1", "contact": "contact1"},
-            "2": {"service": "service2", "address": "address2", "password": "password2", "contact": "contact2"},
-            "3": {"service": "service3", "address": "address3", "password": "password3", "contact": "contact3"},
-            "4": {"service": "service4", "address": "address4", "password": "password4", "contact": "contact4"},
-            "5": {"service": "service5", "address": "address5", "password": "password5", "contact": "contact5"},
-            "6": {"service": "service6", "address": "address6", "password": "password6", "contact": "contact6"},
-            "7": {"service": "service7", "address": "address7", "password": "password7", "contact": "contact7"},
+            "1": {"service": "ophthalmology", "address": "address1", "password": "password1", "contact": "contact1"},
+            "2": {"service": "gynecology", "address": "address2", "password": "password2", "contact": "contact2"},
+            "3": {"service": "otolaryngology", "address": "address3", "password": "password3", "contact": "contact3"},
+            "4": {"service": "general", "address": "address4", "password": "password4", "contact": "contact4"},
+            "5": {"service": "orthopedics", "address": "address5", "password": "password5", "contact": "contact5"},
+            "6": {"service": "cardiology", "address": "address6", "password": "password6", "contact": "contact6"},
+            "7": {"service": "dental", "address": "address7", "password": "password7", "contact": "contact7"},
            
         }
 
