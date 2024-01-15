@@ -56,9 +56,11 @@ class Patient :
     def sign_in(self):
         if self.patient_national_code not in Patient.all_patient:
             Patient.all_patient[self.patient_national_code] = self
-            print('Sign in successfully. Now you need loging in to be able to reserve an appointment.')
+            print('Sign in successfully. Now you need loging in to be able to reserve or cancel an appointment.')
+            return True
         else:
             print('This national code already exists in the database, please choose the log in option')
+            return False
         
     def log_in(self, patient_national_code, password):
         max_attempts = 3
@@ -68,6 +70,7 @@ class Patient :
             if Patient.all_patient[patient_national_code].password_type == 1:
                 print(f'Your temporary password is {generate_password(6)}')
                 print('Log in successfully')
+                return True
                 
             else:
                 while attempts < max_attempts:
@@ -83,6 +86,7 @@ class Patient :
                         
         else:
             print('This national code does not exist in our database and you need signing up.')
+            return False
         
     
     def insert_data(self):
