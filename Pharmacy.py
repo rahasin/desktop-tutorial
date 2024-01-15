@@ -49,3 +49,10 @@ while True :
             break
         else : 
             pass
+    else : 
+        a = int(input("if you want to shop more, enter number 1.\nor if you want to leave, enter anything you want.\n"))
+        if int(a) != 1 :
+            print("Have a nice day.")
+            break
+        else : 
+            pass
