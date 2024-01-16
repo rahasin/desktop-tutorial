@@ -18,7 +18,14 @@ class Patient:
         self.patient_national_code = input("Enter your national code: ")
         self.patient_name = input("Enter your full name: ")
         self.patient_contact_info = input("Enter your contact info: ")
-        self.age = int(input("Enter your age: "))
+        while True:
+            self.age = input("Enter your age: ")
+            if not self.age.isdigit():
+                print('Please enter a number')
+            else:
+                self.age = int(self.age)
+                break
+
         self.insurance = input("Do you have insurance (Yes/No): ")
         print("Choose a password type:")
         print('1. Temporary')
@@ -95,7 +102,7 @@ class Patient:
             result = cursor.fetchone()
 
             # If the patient does not exist, insert the new data
-            if result is None :
+            if len(result) == 0 :
                 sql = """
                 INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_password) 
                 VALUES (?, ?, ?, ?, ?, ?)
