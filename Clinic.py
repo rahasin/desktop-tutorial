@@ -1,4 +1,3 @@
-# Completed Clinic class   
 import requests
 from db_connector import create_connection
 
@@ -13,7 +12,6 @@ class Clinic:
             "5": {"service": "orthopedics", "address": "45th St, Seattle", "password": "br12256pqp", "contact": "09108876543"},
             "6": {"service": "cardiology", "address": "Cleveland, Ohio", "password": "pp09892bbu", "contact": "09124837264"},
             "7": {"service": "dental", "address": "Alderwood Mall Blvd, Lynnwood", "password": "hq89204nnb", "contact": "09127564728"},
-           
         }
 
     def get_info(self):
@@ -23,18 +21,18 @@ class Clinic:
     def insert_data(self):
         data = self.get_info()
         if data is not None:
-            with self.connection.cursor() as cursor:
-                sql = """
-                INSERT INTO clinics (clinic_id , capacity , service , reserved_appointments , address , clinic_password , clinic_contact_info ) 
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-                      """
-                values = []
-                for clinic_id, capacity in data.items():
-                    info = self.additional_info.get(clinic_id, {})
-                    service = info.get("service", "")
-                    address = info.get("address", "")
-                    password = info.get("password", "")
-                    contact = info.get("contact", "")
-                    values.append((clinic_id, capacity, service, 0, address, password, contact))
-                cursor.executemany(sql, values)
+            cursor = self.connection.cursor()
+            sql = """
+            INSERT INTO clinics (clinic_id , capacity , service , reserved_appointments , address , clinic_password , clinic_contact_info ) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+                  """
+            values = []
+            for clinic_id, capacity in data.items():
+                info = self.additional_info.get(clinic_id, {})
+                service = info.get("service", "")
+                address = info.get("address", "")
+                password = info.get("password", "")
+                contact = info.get("contact", "")
+                values.append((clinic_id, capacity, service, 0, address, password, contact))
+            cursor.executemany(sql, values)
             self.connection.commit()
