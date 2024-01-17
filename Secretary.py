@@ -52,3 +52,6 @@ class Secretary:
         """
         values = (clinic_id,)
         return self.execute_query(query, values)
+
+    def close_connection(self):
+        self.connection.close()

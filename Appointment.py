@@ -38,7 +38,7 @@ class Appointment:
         sql = "UPDATE patients SET patient_reserved_appointments = patient_reserved_appointments - ? WHERE patient_national_code = ?"
         cursor.execute(sql, (cancelled, patient_national_code))
         self.connection.commit()
-        
+
         print({"success": True, "message": "Appointment cancelled successfully"}) 
         return True
 
@@ -52,3 +52,6 @@ class Appointment:
 
         print({"success": True, "message": "Clinic capacity increased successfully"})
         return True
+
+    def close_connection(self):
+        self.connection.close()

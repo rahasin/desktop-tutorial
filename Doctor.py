@@ -77,3 +77,6 @@ class Doctor:
         """
         values = (patient_national_code,)
         return self.execute_query(sql_query, values)
+
+    def close_connection(self):
+        self.connection.close()

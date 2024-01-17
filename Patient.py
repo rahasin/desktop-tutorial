@@ -100,20 +100,20 @@ class Patient:
             cursor = self.connection.cursor()
             # Check if the patient already exists in the 'patients' table
             sql = "SELECT * FROM patients WHERE patient_national_code = ?"
-            val = (data['patient_natinal_code'],)
+            val = (data['patient_national_code'],)  # corrected here
             cursor.execute(sql , val)
             result = cursor.fetchone()
 
             # If the patient does not exist, insert the new data
-            if len(result) == 0 :
+            if result is None:  # changed here
                 sql = """
                 INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_password) 
                 VALUES (?, ?, ?, ?, ?, ?)
                 """
-                val = (data['patient_natinal_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_password'])
+                val = (data['patient_national_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_password'])
                 cursor.execute(sql, val)
                 self.connection.commit()
-                
+    
     def execute_query(self, query, values=None):
         try:
             cursor = self.connection.cursor()
@@ -155,3 +155,6 @@ class Patient:
         """
         values = (patient_national_code,)
         return self.execute_query(query, values)
+    
+    def close_connection(self):
+        self.connection.close()

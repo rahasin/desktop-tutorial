@@ -36,3 +36,6 @@ class Clinic:
                 values.append((clinic_id, capacity, service, 0, address, password, contact))
             cursor.executemany(sql, values)
             self.connection.commit()
+
+    def close_connection(self):
+        self.connection.close()
