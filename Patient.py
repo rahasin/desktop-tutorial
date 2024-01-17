@@ -13,6 +13,8 @@ class Patient:
     all_patient = {}
     def __init__(self):
         self.connection = create_connection()
+        self.patient_password = None
+        
 
     def get_info(self):
         # needs while True/ try except
@@ -37,14 +39,12 @@ class Patient:
         print('1. Temporary')
         print('2. Permanent')
         self.password_type = int(input('Please choose an option: '))
-        if self.password_type == 1:
-            self.patient_password = generate_password(8)
-        elif self.password_type == 2:
-            self.patient_password = input('Enter your password: ')
+        if self.password_type == 2:
+            self.patient_password == input('Enter your password: ')
         # needs while True/ try except
         # don't send temporary password in sign up, only in login
-        if len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password) and self.password_type == 2:
-            print('The password is weak.')
+        if self.patient_password is not None and (len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password)) and self.password_type == 2:
+          print('The password is weak.')
 
         self.patient_info = {
             "patient_national_code" : self.patient_national_code,
