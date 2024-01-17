@@ -4,7 +4,7 @@ from Doctor import Doctor
 from Patient import Patient
 from Pharmacy import Pharmacy
 
-def logout():
+def log_out():
         print('You have been logged out.')
         return None
 
@@ -23,14 +23,14 @@ def main():
             patient = Patient()
             appointment = Appointment()
             while True:
-                print('1. Sign in')
+                print('1. Sign up')
                 print('2. Log in')
                 print('3. Log out')
                 option = int(input('Please choose an option: '))
                 if option == 1:
                   while True:
                     patient.get_info()
-                    patient.sign_in()
+                    patient.sign_up()
                     patient.insert_data()
                     print('1. Log in')
                     print('2. Log out')
@@ -74,12 +74,12 @@ def main():
                                         result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
                                         print(result_cancellation)
                                     elif option5 == 3:
-                                        logout()
+                                        log_out()
                                         break
                                     else:
                                         ("Invalid option. Please try again.")
                                 elif option4 == 2:
-                                    logout()
+                                    log_out()
                                     break
                                 else:
                                     print("Invalid option. Please try again.")
@@ -108,18 +108,18 @@ def main():
                                         result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
                                         print(result_cancellation)
                                     elif option6 == 3:
-                                        logout()
+                                        log_out()
                                         break
                                     else:
                                         ("Invalid option. Please try again.")
                         elif option3 == 3:
-                            logout()
+                            log_out()
                             break
                         else :
                             print("Invalid option. Please try again.")
                         
                     elif option2 == 2:
-                        logout()
+                        log_out()
                         break
                     else:
                         print("Invalid option. Please try again.")
@@ -133,7 +133,7 @@ def main():
                         if option == 1:
                             while True:
                                 patient.get_info()
-                                patient.sign_in()
+                                patient.sign_up()
                                 patient.insert_data()
                                 print('1. Log in')
                                 print('2. Log out')
@@ -177,12 +177,12 @@ def main():
                                                             result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
                                                             print(result_cancellation)
                                                         elif option5 == 3:
-                                                            logout()
+                                                            log_out()
                                                             break
                                                         else:
                                                             ("Invalid option. Please try again.")
                                                 elif option4 == 2:
-                                                    logout()
+                                                    log_out()
                                                     break
                                                 else:
                                                     print("Invalid option. Please try again.")
@@ -211,23 +211,23 @@ def main():
                                                         result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
                                                         print(result_cancellation)
                                                     elif option6 == 3:
-                                                        logout()
+                                                        log_out()
                                                         break
                                                     else:
                                                         ("Invalid option. Please try again.")
                                         elif option3 == 3:
-                                            logout()
+                                            log_out()
                                             break
                                         else :
                                             print("Invalid option. Please try again.")
                         
                                 elif option2 == 2:
-                                    logout()
+                                    log_out()
                                     break
                                 else:
                                     print("Invalid option. Please try again.")
                         elif option == 3:
-                            logout()
+                            log_out()
                             break
                         else:
                             print("Invalid option. Please try again.")
@@ -243,7 +243,8 @@ def main():
                 secretary.select_each_clinic_info(clinic_id)
                 print ('1. Reserving an appointment')
                 print('2. Canceling an appointment')
-                print('3. Logout')
+                print('3. Increase clinic capacity')
+                print('4. Logout')
                 option = int(input('Please choose an option: '))
                 if option == 1:
                     # Ask for the number of appointments to reserve
@@ -262,7 +263,16 @@ def main():
                     result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
                     print(result_cancellation)
                 elif option == 3:
-                    logout()
+                    # Ask for the amount to increase the clinic capacity
+                    increase_amount = int(input('Enter the amount to increase the clinic capacity: '))
+                    # Call the increase_capacity method
+                    result_increase = appointment.increase_capacity(clinic_id, increase_amount)
+                    if result_increase:
+                        print("Clinic capacity increased successfully.")
+                    else:
+                        print("Failed to increase clinic capacity.")
+                elif option == 4:
+                    log_out()
                     break
                 else :
                     print("Invalid option. Please try again.")
@@ -285,7 +295,7 @@ def main():
                         break
                     doctor.select_each_patient_info()
                 elif option == 3:
-                    logout()
+                    log_out()
                     break
                 else:
                     print("Invalid option. Please try again.")
@@ -312,40 +322,40 @@ def main():
                 option7 = int(input('Please Enter the drug name'))
                 if option7 == 1: 
                     pharmacy.dispense_drug('Tetrahydrozoline')
-                    logout()
+                    log_out()
                     break
                 elif option7 == 2:
                     pharmacy.dispense_drug('carbetocin')
-                    logout()
+                    log_out()
                     break
                 elif option7 == 3:
                     pharmacy.dispense_drug('Mometasone')
-                    logout()
+                    log_out()
                     break
                 elif option7 == 4:
                     pharmacy.dispense_drug('Amoxicillin')
-                    logout()
+                    log_out()
                     break
                 elif option7 == 5:
                     pharmacy.dispense_drug('Diclofenac')
-                    logout()
+                    log_out()
                     break
                 elif option7 == 6:
                     pharmacy.dispense_drug('Amiodarone')
-                    logout()
+                    log_out()
                     break
                 elif option7 == 7:
                     pharmacy.dispense_drug('Articaine')
-                    logout()
+                    log_out()
                     break
                 elif option7 == 8:
-                    logout()
+                    log_out()
                     break
                 else:
                     print("Invalid option. Please try again.")
 
         elif position == 5:
-            logout()
+            log_out()
             break
         else:
             print("Invalid option. Please try again.")

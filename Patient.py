@@ -15,9 +15,15 @@ class Patient:
         self.connection = create_connection()
 
     def get_info(self):
+        # needs while True/ try except
         self.patient_national_code = input("Enter your national code: ")
+        if len(self.patient_national_code) != 10:
+            print("national code is incorrect")
         self.patient_name = input("Enter your full name: ")
+        # needs while True/ try except
         self.patient_contact_info = input("Enter your contact info: ")
+        if len(self.patient_contact_info) != 11 :
+            print("this phone number is incorrect")
         while True:
             self.age = input("Enter your age: ")
             if not self.age.isdigit():
@@ -35,14 +41,11 @@ class Patient:
             self.patient_password = generate_password(8)
         elif self.password_type == 2:
             self.patient_password = input('Enter your password: ')
-
-        if len(self.patient_national_code) != 10:
-            print("national code is incorrect")
-        
+        # needs while True/ try except
+        # don't send temporary password in sign up, only in login
         if len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password) and self.password_type == 2:
             print('The password is weak.')
-        elif len(self.patient_contact_info) != 11 :
-            print("this phone number is incorrect")
+
         self.patient_info = {
             "patient_national_code" : self.patient_national_code,
             "patient_name" : self.patient_name,
@@ -54,10 +57,10 @@ class Patient:
 
         return self.patient_info
     
-    def sign_in(self):
+    def sign_up(self):
         if self.patient_national_code not in Patient.all_patient:
             Patient.all_patient[self.patient_national_code] = self
-            print('Sign in successfully. Now you need logging in to be able to reserve or cancel an appointment.')
+            print('Sign up successfully. Now you need logging in to be able to reserve or cancel an appointment.')
             return True
         else:
             print('This national code already exists in the database, please choose the log in option')
@@ -86,7 +89,7 @@ class Patient:
                             return None
                         
         else:
-            print('This national code does not exist in our database and you need signing up.')
+            print('This national code does not exist in our database and you needs signing up.')
             return False
 
         

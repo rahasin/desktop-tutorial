@@ -37,7 +37,18 @@ class Appointment:
         # Update patients table
         sql = "UPDATE patients SET patient_reserved_appointments = patient_reserved_appointments - ? WHERE patient_national_code = ?"
         cursor.execute(sql, (cancelled, patient_national_code))
-
         self.connection.commit()
+        
         print({"success": True, "message": "Appointment cancelled successfully"}) 
+        return True
+
+    def increase_capacity(self, clinic_id, increase_amount):
+        # Update SQLite database
+        cursor = self.connection.cursor()
+        # Update clinics table
+        sql = "UPDATE clinics SET capacity = capacity + ? WHERE clinic_id = ?"
+        cursor.execute(sql, (increase_amount, clinic_id))
+        self.connection.commit()
+
+        print({"success": True, "message": "Clinic capacity increased successfully"})
         return True
