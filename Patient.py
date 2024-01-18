@@ -105,7 +105,7 @@ class Patient:
         max_attempts = 3
         attempts = 0
         while True:
-            self.patient_national_code = input('Enter your national code.')
+            self.patient_national_code = input('Enter your national coden:')
             if self.patient_national_code in Patient.all_patient:
                 if Patient.all_patient[self.patient_national_code].password_type == 1:
                     print(f'Your temporary password is {generate_password(8)}')
