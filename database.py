@@ -28,7 +28,7 @@ try:
         patient_contact_info TEXT NOT NULL,
         patient_age INTEGER,
         patient_insurance TEXT,
-        patient_permanent_password TEXT,
+        patient_password TEXT,
         patient_reserved_appointments INTEGER,
         clinic_id INTEGER,
         FOREIGN KEY (clinic_id) REFERENCES clinics(clinic_id)
