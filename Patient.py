@@ -7,7 +7,6 @@ from db_connector import create_connection
 def generate_password(length):
     characters = string.ascii_lowercase + string.digits 
     random_string = ''.join(random.choice(characters) for _ in range(length))
-    print(random_string)
     return random_string
 
 class Patient:
