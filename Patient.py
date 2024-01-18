@@ -67,20 +67,21 @@ class Patient:
             print('This national code already exists in the database, please choose the log in option')
             return False
         
-    def log_in(self, patient_national_code, password):
+    def log_in(self):
+        
         max_attempts = 3
         attempts = 0
-        patient_national_code = input('Enter your national code.')
-        if patient_national_code in Patient.all_patient:
-            if Patient.all_patient[patient_national_code].password_type == 1:
+        self.patient_national_code = input('Enter your national code.')
+        if self.patient_national_code in Patient.all_patient:
+            if Patient.all_patient[self.patient_national_code].password_type == 1:
                 print(f'Your temporary password is {generate_password(8)}')
                 print('Log in successfully')
                 return True
-                
+                    
             else:
                 while attempts < max_attempts:
-                    password = input('Enter your password: ')
-                    if Patient.all_patient[patient_national_code].patient_password == password:
+                    self.password = input('Enter your password: ')
+                    if Patient.all_patient[self.patient_national_code].patient_password == self.password:
                         print('Log in successfully')
                     else:
                         attempts += 1
