@@ -1,3 +1,4 @@
+
 import random
 import string
 import re
@@ -17,35 +18,68 @@ class Patient:
         
 
     def get_info(self):
-        # needs while True/ try except
-        self.patient_national_code = input("Enter your national code: ")
-        if len(self.patient_national_code) != 10:
-            print("national code is incorrect")
+        while True:
+            self.patient_national_code = input("Enter your national code: ")
+            if len(self.patient_national_code) != 10:
+                print("National code is incorrect, it must contain 10 digits. Please try again.")
+                continue
+            break
+
         self.patient_name = input("Enter your full name: ")
-        # needs while True/ try except
-        self.patient_contact_info = input("Enter your contact info: ")
-        if len(self.patient_contact_info) != 11 :
-            print("this phone number is incorrect")
+
+        while True:
+            self.patient_contact_info = input("Enter your contact info: ")
+            if len(self.patient_contact_info) != 11 :
+                print("This phone number is incorrect, it must contain 11 digits. Please try again.")
+                continue
+            break
+
         while True:
             self.age = input("Enter your age: ")
             if not self.age.isdigit():
-                print('Please enter a number')
+                print('Please enter a number.')
+                continue
             else:
                 self.age = int(self.age)
                 break
 
         self.insurance = input("Do you have insurance (Yes/No): ")
-        print("Choose a password type:")
-        print('1. Temporary')
-        print('2. Permanent')
-        self.password_type = int(input('Please choose an option: '))
+
+        while True:
+            print("Choose a password type:")
+            print('1. Temporary')
+            print('2. Permanent')
+            try:
+                self.password_type = int(input('Please choose an option: '))
+                if self.password_type not in [1, 2]:
+                    print("Invalid option. Please try again.")
+                    continue
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+                continue
+            break
+
         if self.password_type == 2:
-            self.patient_password == input('Enter your password: ')
-        # needs while True/ try except
-        # don't send temporary password in sign up, only in login
-        if self.patient_password is not None and (len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password)) and self.password_type == 2:
-          print('The password is weak.')
-        self.clinic_id = int(input('Please choose a clinic id(1 , 2 , 3 , 4 , 5 , 6 , 7): '))
+            self.patient_password = input('Enter your password: ')
+
+        while True:
+            if self.patient_password is not None and (len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password)) and self.password_type == 2:
+                print('The password is weak, it must be more than 8 chracters and must contain at least one digit, capital and small letter and the character in the bracket [_]. Please try again.')
+                self.patient_password = input('Enter your password: ')
+                continue
+            break
+
+        while True:
+            try:
+                self.clinic_id = int(input('Please choose a clinic id(1 , 2 , 3 , 4 , 5 , 6 , 7): '))
+                if self.clinic_id not in [1, 2, 3, 4, 5, 6, 7]:
+                    print("Invalid clinic id. Please try again.")
+                    continue
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+                continue
+            break
+
         self.patient_info = {
             "patient_national_code" : self.patient_national_code,
             "patient_name" : self.patient_name,
@@ -64,37 +98,43 @@ class Patient:
             print('Sign up successfully. Now you need logging in to be able to reserve or cancel an appointment.')
             return True
         else:
-            print('This national code already exists in the database, please choose the log in option')
+            print('This national code already exists in the database, please choose the log in option.')
             return False
         
     def log_in(self):
         
         max_attempts = 3
         attempts = 0
-        self.patient_national_code = input('Enter your national code.')
-        if self.patient_national_code in Patient.all_patient:
-            if Patient.all_patient[self.patient_national_code].password_type == 1:
-                print(f'Your temporary password is {generate_password(8)}')
-                print('Log in successfully')
-                return True
+        while True:
+            self.patient_national_code = input('Enter your national code.')
+            if self.patient_national_code in Patient.all_patient:
+                if Patient.all_patient[self.patient_national_code].password_type == 1:
+                    print(f'Your temporary password is {generate_password(8)}')
+                    print('Log in successfully!')
+                    return True
                     
+                else:
+                    while attempts < max_attempts:
+                        self.password = input('Enter your password: ')
+                        if Patient.all_patient[self.patient_national_code].patient_password == self.password:
+                            print('Log in successfully!')
+                            return True
+                        else:
+                            attempts += 1
+                            print('Password is wrong!')
+                            if attempts == max_attempts:
+                                print('You have been logged out due to too many incorrect attempts.')
+                                return None 
             else:
-                while attempts < max_attempts:
-                    self.password = input('Enter your password: ')
-                    if Patient.all_patient[self.patient_national_code].patient_password == self.password:
-                        print('Log in successfully')
-                    else:
-                        attempts += 1
-                        print('Password is wrong!')
-                        if attempts == max_attempts:
-                            print('You have been logged out due to too many incorrect attempts.')
-                            return None
-                        
-        else:
-            print('This national code does not exist in our database and you needs signing up.')
-            return False
-
-        
+                print('National code not found. Would you like to sign up? (Yes/No)')
+                choice = input()
+                if choice.lower() == 'yes':
+                    self.insert_data()
+                    self.sign_up()
+                    return True
+                else:
+                    print('Please try again.')
+            
     
     def insert_data(self):
         data = self.get_info()
