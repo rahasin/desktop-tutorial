@@ -29,9 +29,9 @@ def main():
                 option = int(input('Please choose an option: '))
                 if option == 1:
                   while True:
-                    patient.get_info()
-                    patient.sign_up()
                     patient.insert_data()
+                    patient.sign_up()
+                    
                     print('1. Log in')
                     print('2. Log out')
                     option2 = int(input('Please choose an option: '))
@@ -126,15 +126,15 @@ def main():
                 elif option == 2:
                     patient.log_in()
                     while True:
-                        print('1. Sign in')
+                        print('1. Sign up')
                         print('2. Log in')
                         print('3. Log out')
                         option = int(input('Please choose an option: '))
                         if option == 1:
                             while True:
-                                patient.get_info()
-                                patient.sign_up()
                                 patient.insert_data()
+                                patient.sign_up()
+                                
                                 print('1. Log in')
                                 print('2. Log out')
                                 option2 = int(input('Please choose an option: '))
@@ -317,7 +317,7 @@ def main():
                 print('4. Amoxicillin')
                 print('5. Diclofenac')
                 print('6. Amiodarone')
-                print('7. Drug no.7')
+                print('7. Articaine')
                 print('8. Log out')
                 option7 = int(input('Please Enter the drug name'))
                 if option7 == 1: 
@@ -351,14 +351,12 @@ def main():
                 elif option7 == 8:
                     log_out()
                     break
-                else:
-                    print("Invalid option. Please try again.")
+                
 
         elif position == 5:
             log_out()
             break
-        else:
-            print("Invalid option. Please try again.")
+        
 
         
 if __name__ == "__main__":
