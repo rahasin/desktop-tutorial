@@ -23,7 +23,7 @@ class Clinic:
         if data is not None:
             cursor = self.connection.cursor()
             sql = """
-            INSERT INTO clinics (clinic_id , capacity , service , reserved_appointments , address , clinic_password , clinic_contact_info ) 
+            INSERT INTO clinics (clinic_id , capacity , service , clinic_reserved_appointments , address , clinic_password , clinic_contact_info ) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
                   """
             values = []
@@ -39,3 +39,11 @@ class Clinic:
 
     def close_connection(self):
         self.connection.close()
+
+if __name__ == "__main__":
+    clinic = Clinic()
+    try:
+        clinic.get_info()
+        clinic.insert_data()
+    finally:
+        clinic.close_connection()

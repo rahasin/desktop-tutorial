@@ -45,14 +45,15 @@ class Patient:
         # don't send temporary password in sign up, only in login
         if self.patient_password is not None and (len(self.patient_password) < 8 or not re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_]).+$', self.patient_password)) and self.password_type == 2:
           print('The password is weak.')
-
+        self.clinic_id = int(input('Please choose a clinic id(1 , 2 , 3 , 4 , 5 , 6 , 7): '))
         self.patient_info = {
             "patient_national_code" : self.patient_national_code,
             "patient_name" : self.patient_name,
             "patient_contact_info" : self.patient_contact_info,
             "patient_age" : self.age,
             "patient_insurance" : self.insurance,
-            "patient_password" : self.patient_password
+            "patient_password" : self.patient_password,
+            "clinic_id" : self.clinic_id
         }
 
         return self.patient_info
@@ -107,10 +108,10 @@ class Patient:
             # If the patient does not exist, insert the new data
             if result is None:  # changed here
                 sql = """
-                INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_password) 
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_password , patient_reserved_appointments , clinic_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """
-                val = (data['patient_national_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_password'])
+                val = (data['patient_national_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_password'] , 0 , data['clinic_id'])
                 cursor.execute(sql, val)
                 self.connection.commit()
     
