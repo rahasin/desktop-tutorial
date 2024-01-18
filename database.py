@@ -14,7 +14,6 @@ try:
         service TEXT NOT NULL,
         clinic_reserved_appointments INTEGER,
         address TEXT NOT NULL,
-        clinic_password TEXT NOT NULL,
         clinic_contact_info TEXT NOT NULL
     )
     """

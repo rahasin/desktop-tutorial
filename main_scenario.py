@@ -3,14 +3,21 @@ from Appointment import Appointment
 from Doctor import Doctor
 from Patient import Patient
 from Pharmacy import Pharmacy
+from Clinic import Clinic
 
 def log_out():
         print('You have been logged out.')
         return None
 
 
-
 def main():
+    clinic = Clinic()
+    try:
+        clinic.get_info()
+        clinic.insert_data()
+    finally:
+        clinic.close_connection()
+
     while True:
         print('1. Patient')
         print('2. Secretary')
