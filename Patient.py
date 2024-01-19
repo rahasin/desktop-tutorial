@@ -3,6 +3,7 @@ import random
 import string
 import re
 from db_connector import create_connection
+from main_scenario import log_out
 
 def generate_password(length):
     characters = string.ascii_lowercase + string.digits 
@@ -105,7 +106,7 @@ class Patient:
         max_attempts = 3
         attempts = 0
         while True:
-            self.patient_national_code = input('Enter your national code.')
+            self.patient_national_code = input('Enter your national coden:')
             if self.patient_national_code in Patient.all_patient:
                 if Patient.all_patient[self.patient_national_code].password_type == 1:
                     print(f'Your temporary password is {generate_password(8)}')
@@ -123,6 +124,7 @@ class Patient:
                             print('Password is wrong!')
                             if attempts == max_attempts:
                                 print('You have been logged out due to too many incorrect attempts.')
+                                log_out()
                                 return None 
             else:
                 print('National code not found. Would you like to sign up? (Yes/No)')
