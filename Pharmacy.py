@@ -25,13 +25,5 @@ class Pharmacy:
         # Dispense the drug and update the inventory
         self.inventory[drug] -= 1
 
-# Create an instance of the Pharmacy class
 
-
-
-# Get the drug information
-#drug = input("Enter the drug: ")
-
-# Use the Pharmacy instance to dispense the drug
-#pharmacy.dispense_drug(drug)
 

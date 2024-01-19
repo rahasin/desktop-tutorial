@@ -23,7 +23,7 @@ class Clinic:
         if data is not None:
             cursor = self.connection.cursor()
             sql = """
-            INSERT INTO clinics (clinic_id , capacity , service , clinic_reserved_appointments , address , clinic_contact_info ) 
+            INSERT OR REPLACE INTO clinics (clinic_id , capacity , service , clinic_reserved_appointments , address , clinic_contact_info ) 
             VALUES (?, ?, ?, ?, ?, ?)
                   """
             values = []

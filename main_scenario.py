@@ -51,14 +51,20 @@ def main():
                         option3 = int(input('Please choose an option: '))
                         if option3 == 1:
                             while True:
-                                patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
+                                result_patinet_reserved = patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
+                                print("\nPatient Reserved Appointments Info:")
+                                for row in result_patinet_reserved:
+                                    print(row)
                                 print('1. Available appointments')
                                 print('2. Log out')
                                 option4 = int(input('Please choose an option: '))
                                 if option4 == 1:
                                   while True:
                                     clinic_id = int(input('Choose a clinic id'))
-                                    patient.select_clinic_capacity_info(clinic_id)
+                                    result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
+                                    print("\nClinic Capacity Info:")
+                                    for row in result_view_capacity:
+                                        print(row)
                                     print('1. Reserve an appointment')
                                     print('2. Cancel an appointment')
                                     print('3. Log out')
@@ -93,7 +99,10 @@ def main():
                         elif option3 == 2:
                             while True:
                                     clinic_id = int(input('Choose a clinic id'))
-                                    patient.select_clinic_capacity_info(clinic_id)
+                                    result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
+                                    print("\nClinic Capacity Info:")
+                                    for row in result_view_capacity:
+                                        print(row)
                                     print('1. Reserve an appointment')
                                     print('2. Cancel an appointment')
                                     print('3. Log out')
@@ -140,8 +149,7 @@ def main():
                         if option == 1:
                             while True:
                                 patient.insert_data()
-                                patient.sign_up()
-                                
+                                patient.sign_up()  
                                 print('1. Log in')
                                 print('2. Log out')
                                 option2 = int(input('Please choose an option: '))
@@ -154,14 +162,20 @@ def main():
                                         option3 = int(input('Please choose an option: '))
                                         if option3 == 1:
                                             while True:
-                                                patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
+                                                result_patinet_reserved = patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
+                                                print("\nPatient Reserved Appointments Info:")
+                                                for row in result_patinet_reserved:
+                                                    print(row)
                                                 print('1. Available appointments')
                                                 print('2. Log out')
                                                 option4 = int(input('Please choose an option: '))
                                                 if option4 == 1:
                                                     while True:
                                                         clinic_id = int(input('Choose a clinic id'))
-                                                        patient.select_clinic_capacity_info(clinic_id)
+                                                        result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
+                                                        print("\nClinic Capacity Info:")
+                                                        for row in result_view_capacity:
+                                                            print(row)
                                                         print('1. Reserve an appointment')
                                                         print('2. Cancel an appointment')
                                                         print('3. Log out')
@@ -196,7 +210,10 @@ def main():
                                         elif option3 == 2:
                                             while True:
                                                     clinic_id = int(input('Choose a clinic id'))
-                                                    patient.select_clinic_capacity_info(clinic_id)
+                                                    result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
+                                                    print("\nClinic Capacity Info:")
+                                                    for row in result_view_capacity:
+                                                        print(row)
                                                     print('1. Reserve an appointment')
                                                     print('2. Cancel an appointment')
                                                     print('3. Log out')
@@ -247,7 +264,10 @@ def main():
                 if not secretary.enter_code():
                     break
                 clinic_id = secretary.choose_clinic()
-                secretary.select_each_clinic_info(clinic_id)
+                result_secretary_view_info = secretary.select_each_clinic_info(clinic_id)
+                print("\nEach Clinic Info:")
+                for row in result_secretary_view_info:
+                    print(row)
                 print ('1. Reserving an appointment')
                 print('2. Canceling an appointment')
                 print('3. Increase clinic capacity')
@@ -296,11 +316,17 @@ def main():
                 option = int(input("Please choose an option: "))
                 if option == 1:
                     clinic_id = doctor.choose_clinic()
-                    doctor.select_each_clinic_info(clinic_id)
+                    result_doctor_view_info = doctor.select_each_clinic_info(clinic_id)
+                    print("\nEach Clinic Info:")
+                    for row in result_doctor_view_info:
+                        print(row)
                 elif option == 2:
                     if not doctor.view_patient_data():
                         break
-                    doctor.select_each_patient_info()
+                    result_view_patient = doctor.select_each_patient_info(patient_national_code=input('Please enter your national code.'))
+                    print("\nEach Patient Info:")
+                    for row in result_view_patient:
+                        print(row)
                 elif option == 3:
                     log_out()
                     break

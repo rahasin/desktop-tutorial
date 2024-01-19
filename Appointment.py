@@ -5,7 +5,7 @@ class Appointment:
     def __init__(self):
         self.connection = create_connection()
 
-    def reserve_appointment(self, clinic_id, reserved, national_code):
+    def reserve_appointment(self, clinic_id, reserved, patient_national_code):
         # Send POST request to Flask API
         url = 'http://127.0.0.1:5000/reserve'
         data = {'id': clinic_id, 'reserved': reserved}
@@ -20,8 +20,8 @@ class Appointment:
             cursor.execute(sql, (reserved, reserved, clinic_id))
 
             # Update patients table
-            sql = "UPDATE patients SET patient_reserved_appointments = patient_reserved_appointments + ? WHERE national_code = ?"
-            cursor.execute(sql, (reserved, national_code))
+            sql = "UPDATE patients SET patient_reserved_appointments = patient_reserved_appointments + ? WHERE patient_national_code = ?"
+            cursor.execute(sql, (reserved, patient_national_code))
 
             self.connection.commit()
 
