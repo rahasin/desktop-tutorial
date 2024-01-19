@@ -3,7 +3,9 @@ import random
 import string
 import re
 from db_connector import create_connection
-from main_scenario import log_out
+def log_out():
+        print('You have been logged out.')
+        return None
 
 def generate_password(length):
     characters = string.ascii_lowercase + string.digits 
@@ -93,13 +95,15 @@ class Patient:
         return self.patient_info
     
     def sign_up(self):
-        if self.patient_national_code not in Patient.all_patient:
-            Patient.all_patient[self.patient_national_code] = self
-            print('Sign up successfully. Now you need logging in to be able to reserve or cancel an appointment.')
-            return True
-        else:
-            print('This national code already exists in the database, please choose the log in option.')
-            return False
+            # Check if the patient's national code is already in the database
+            if self.patient_national_code in Patient.all_patient:
+                print('This national code already exists in the database, please log in.')
+                return False
+            else:
+                # If not, add the patient to the database and complete the sign-up process
+                Patient.all_patient[self.patient_national_code] = self
+                print('Sign up successfully. Now you need to log in to be able to reserve or cancel an appointment.')
+                return True
         
     def log_in(self):
         

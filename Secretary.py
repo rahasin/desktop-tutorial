@@ -18,7 +18,7 @@ class Secretary:
     def choose_clinic(self):
         while True:
             try:
-                clinic_id = int(input('Please choose your clinic id.'))
+                clinic_id = int(input('Please choose your clinic id: '))
                 if clinic_id in self.clinic_ids:
                     return clinic_id
                 else:
