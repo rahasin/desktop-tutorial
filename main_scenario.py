@@ -38,7 +38,7 @@ def main():
                     log_out()
                     break
                 elif option == 1:
-                  while True:
+                 while True:
                     patient.insert_data()
                     patient.sign_up()
                     if not patient.sign_up :
@@ -288,7 +288,7 @@ def main():
                             break
                         '''else:
                             print("Invalid option. Please try again.")'''
-
+                break
 
         elif position == 2:
             secretary = Secretary()
