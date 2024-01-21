@@ -41,10 +41,13 @@ def main():
                   while True:
                     patient.insert_data()
                     patient.sign_up()
-                    
-                    print('1. Log in')
-                    print('2. Log out')
-                    option2 = int(input('Please choose an option: '))
+                    if not patient.sign_up :
+                        print("Now you are heading to login page")
+                        option2 = 1
+                    elif patient.sign_up : 
+                        print('1. Log in')
+                        print('2. Log out')
+                        option2 = int(input('Please choose an option: '))
                     if option2 == 1:
                       while True:
                         patient.log_in()
@@ -148,6 +151,7 @@ def main():
                         elif option3 == 3:
                             log_out()
                             break
+                        break
                         '''else :
                             print("Invalid option. Please try again.")'''
                         
