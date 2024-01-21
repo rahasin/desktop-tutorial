@@ -129,7 +129,7 @@ class Patient:
                             if attempts == max_attempts:
                                 print('You have been logged out due to too many incorrect attempts.')
                                 log_out()
-                                return None 
+                                return False 
             else:
                 print('National code not found. Would you like to sign up? (Yes/No)')
                 choice = input()
