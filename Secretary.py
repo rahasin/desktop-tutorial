@@ -42,10 +42,10 @@ class Secretary:
         SELECT 
         patient_national_code, 
         patient_name, 
-        patient_contact_info, 
+        patients_reserved_appointments,
         patient_age, 
         patient_insurance, 
-        patients_reserved_appointments
+        patient_contact_info
         FROM patients 
         WHERE clinic_id = ? AND 
         patients_reserved_appointments > 0 

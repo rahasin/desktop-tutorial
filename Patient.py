@@ -177,10 +177,10 @@ class Patient:
         SELECT 
         clinic_id,
         service,
-        address,
-        clinic_contact_info,
         capacity,
         clinic_reserved_appointments,
+        address,
+        clinic_contact_info,
         FROM clinics
         WHERE clinic_id = ?
         ORDER BY clinic_id ASC
