@@ -35,6 +35,16 @@ try:
     """
     cursor.execute(sql)
 
+    # Create 'pharmacy' table
+    sql = """
+    CREATE TABLE IF NOT EXISTS pharmacy (
+    drug_name TEXT PRIMARY KEY,
+    quantity INTEGER
+    )
+    """
+    cursor.execute(sql)
+
+
     connection.commit()
 finally:
     connection.close()
