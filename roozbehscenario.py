@@ -45,7 +45,6 @@ def main():
                         break
                     else :
                         while True:
-                            patient.log_in()
                             print('1. Your reserved appointments')
                             print('2. Available appointments')
                             print('3. Log out')
