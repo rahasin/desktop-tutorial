@@ -178,9 +178,9 @@ class Patient:
         clinic_id,
         service,
         address,
-        capacity ,
+        clinic_contact_info,
+        capacity,
         clinic_reserved_appointments,
-        clinic_contact_info
         FROM clinics
         WHERE clinic_id = ?
         ORDER BY clinic_id ASC
@@ -192,7 +192,7 @@ class Patient:
         query ="""
         SELECT 
         patient_national_code, 
-        patient_name ,
+        patient_name,
         clinic_id,
         patient_reserved_appointments
         FROM patients
