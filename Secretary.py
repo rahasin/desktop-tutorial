@@ -48,7 +48,7 @@ class Secretary:
         patient_contact_info
         FROM patients 
         WHERE clinic_id = ? AND 
-        patients_reserved_appointments > 0 
+        patient_reserved_appointments > 0 
         """
         values = (clinic_id,)
         return self.execute_query(query, values)
