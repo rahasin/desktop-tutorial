@@ -4,7 +4,6 @@ from Doctor import Doctor
 from Patient import Patient
 from Pharmacy import Pharmacy
 from Clinic import Clinic
-from prettytable import PrettyTable
 
 def log_out():
         print('You have been logged out.')
@@ -26,7 +25,6 @@ def main():
         print('4. Pharmacy')
         #print('5. Log out')
         position = int(input("Please choose your position: "))
-
         if position == 1:
             patient = Patient()
             appointment = Appointment()
@@ -39,323 +37,122 @@ def main():
                     log_out()
                     break
                 elif option == 1:
-                    while True:
-                        patient.insert_data()
-                        patient.sign_up()
-                        if not patient.sign_up :
-                            print("Now you are heading to login page")
-                            option2 = 1
-                        elif patient.sign_up : 
-                            print('1. Log in')
-                            print('2. Log out')
-                            option2 = int(input('Please choose an option: '))
-                        if option2 == 1:
-                            while True:
-                                patient.log_in()
-                                print('1. Your reserved appointments')
-                                print('2. Available appointments')
-                                print('3. Log out')
-                                option3 = int(input('Please choose an option: '))
-                                if option3 == 1:
-                                    while True:
-                                        result_patinet_reserved = patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
-                                        table = PrettyTable()
-                                        table.field_names = ["Patient National Code", "Patient Name", "Clinic ID", "Reserved Appointments"]
-                                        for row in result_patinet_reserved:
-                                            table.add_row(row)
-                                        print("\nPatient Reserved Appointments Info:")
-                                        print(table)
-                                        print('1. Available appointments')
-                                        print('2. Log out')
-                                        option4 = int(input('Please choose an option: '))
-                                        if option4 == 1:
-                                            while True:
-                                                clinic_id = int(input('Choose a clinic id: '))
-                                                result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
-                                                table = PrettyTable()
-                                                table.field_names = ["Clinic ID", "Service", "Capacity", "Reserved Appointments", "Address", "Contact Info"]
-                                                for row in result_view_capacity:
-                                                    table.add_row(row)
-                                                print("\nClinic Capacity Info: ")
-                                                print(table)
-                                                print('1. Reserve an appointment')
-                                                print('2. Cancel an appointment')
-                                                print('3. Log out')
-                                                option5 = int(input('Choose an option: '))
-                                                if option5 == 1:
-                                                    while True:
-                                                        #= int(input('Please choose a clinic id.'))
-                                                        # Ask for the number of appointments to reserve
-                                                        number_of_appointments = int(input('Enter the number of appointments to reserve: '))
-                                                        # Ask for the patient's national code
-                                                        patient_national_code = input('Enter the patient\'s national code: ')
-                                                        # Call the reserve_appointment method
-                                                        result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                        print(result_reservation)
-                                                        input('For loging out, enter a word: ')
-                                                        log_out()
-                                                        break
-                                                elif option5 == 2:
-                                                    # Ask for the number of appointments to cancel
-                                                    number_of_appointments = int(input('Enter the number of appointments to cancel: '))
-                                                    # Ask for the patient's national code
-                                                    patient_national_code = input('Enter the patient\'s national code: ')
-                                                    # Call the cancel_appointment method
-                                                    result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                    print(result_cancellation)
-                                                    input('For loging out, enter a word: ')
-                                                    log_out()
-                                                    break
-                                                elif option5 == 3:
-                                                    log_out()
-                                                    break
-                                                '''else:
-                                                    ("Invalid option. Please try again.")'''
-                                        elif option4 == 2:
-                                            log_out()
-                                            break
-                                        '''else:
-                                            print("Invalid option. Please try again.")'''
-                                elif option3 == 2:
-                                    while True:
-                                            clinic_id = int(input('Choose a clinic id'))
-                                            result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
-                                            table = PrettyTable()
-                                            table.field_names = ["Clinic ID", "Service", "Capacity", "Reserved Appointments", "Address", "Contact Info"]
-                                            for row in result_view_capacity:
-                                                table.add_row(row)
-                                            print("\nClinic Capacity Info: ")
-                                            print(table)
-                                            print('1. Reserve an appointment')
-                                            print('2. Cancel an appointment')
-                                            print('3. Log out')
-                                            option6 = int(input('Choose an option: '))
-                                            if option6 == 1:
-                                                #= int(input('Please choose a clinic id.'))
-                                                # Ask for the number of appointments to reserve
-                                                number_of_appointments = int(input('Enter the number of appointments to reserve: '))
-                                                # Ask for the patient's national code
-                                                patient_national_code = input('Enter the patient\'s national code: ')
-                                                # Call the reserve_appointment method
-                                                result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                input('For loging out, enter a word: ')
-                                                log_out()
-                                                break
-                                            elif option6 == 2:
-                                                # Ask for the number of appointments to cancel
-                                                number_of_appointments = int(input('Enter the number of appointments to cancel: '))
-                                                # Ask for the patient's national code
-                                                patient_national_code = input('Enter the patient\'s national code: ')
-                                                # Call the cancel_appointment method
-                                                result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                print(result_cancellation)
-                                                input('For loging out, enter a word: ')
-                                                log_out()
-                                                break
-                                            elif option6 == 3:
-                                                log_out()
-                                                break
-                                            '''else:
-                                                ("Invalid option. Please try again.")'''
-                                elif option3 == 3:
-                                    log_out()
-                                    break
-                                '''else :
-                                    print("Invalid option. Please try again.")'''      
-                        elif option2 == 2:
-                            log_out()
-                            break
-                        '''else:
-                            print("Invalid option. Please try again.")'''
-                        break
+                    patient.insert_data()
+                    patient.sign_up()
+                    print("Now you are heading to home page")
                 elif option == 2:
-                    patient.log_in()
-                    while True:
-                        print('1. Sign up')
-                        #print('2. Log in')
-                        print('3. Log out')
-                        option = int(input('Please choose an option: '))
-                        if option == 1:
-                            while True:
-                                patient.insert_data()
-                                patient.sign_up()  
-                                print('1. Log in')
-                                print('2. Log out')
-                                option2 = int(input('Please choose an option: '))
-                                if option2 == 1:
-                                    while True:
-                                        patient.log_in()
-                                        print('1. Your reserved appointments')
-                                        print('2. Available appointments')
-                                        print('3. Log out')
-                                        option3 = int(input('Please choose an option: '))
-                                        if option3 == 1:
-                                            while True:
-                                                result_patinet_reserved = patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
-                                                table = PrettyTable()
-                                                table.field_names = ["Patient National Code", "Patient Name", "Clinic ID", "Reserved Appointments"]
-                                                for row in result_patinet_reserved:
-                                                     table.add_row(row)
-                                                print("\nPatient Reserved Appointments Info:")
-                                                print(table)
-                                                print('1. Available appointments')
-                                                print('2. Log out')
-                                                option4 = int(input('Please choose an option: '))
-                                                if option4 == 1:
-                                                    while True:
-                                                        clinic_id = int(input('Choose a clinic id'))
-                                                        result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
-                                                        table = PrettyTable()
-                                                        table.field_names = ["Clinic ID", "Service", "Capacity", "Reserved Appointments", "Address", "Contact Info"]
-                                                        for row in result_view_capacity:
-                                                            table.add_row(row)
-                                                        print("\nClinic Capacity Info: ")
-                                                        print(table)
-                                                        print('1. Reserve an appointment')
-                                                        print('2. Cancel an appointment')
-                                                        print('3. Log out')
-                                                        option5 = int(input('Choose an option: '))
-                                                        if option5 == 1:
-                                                            #= int(input('Please choose a clinic id.'))
-                                                            # Ask for the number of appointments to reserve
-                                                            number_of_appointments = int(input('Enter the number of appointments to reserve: '))
-                                                            # Ask for the patient's national code
-                                                            patient_national_code = input('Enter the patient\'s national code: ')
-                                                            # Call the reserve_appointment method
-                                                            result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                            print(result_reservation)
-                                                            input('For loging out, enter a word: ')
-                                                            log_out()
-                                                            break
-                                                        elif option5 == 2:
-                                                            # Ask for the number of appointments to cancel
-                                                            number_of_appointments = int(input('Enter the number of appointments to cancel: '))
-                                                            # Ask for the patient's national code
-                                                            patient_national_code = input('Enter the patient\'s national code: ')
-                                                            # Call the cancel_appointment method
-                                                            result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                            print(result_cancellation)
-                                                            input('For loging out, enter a word: ')
-                                                            log_out()
-                                                            break
-                                                        elif option5 == 3:
-                                                            log_out()
-                                                            break
-                                                        '''else:
-                                                            ("Invalid option. Please try again.")'''
-                                                elif option4 == 2:
-                                                    log_out()
-                                                    break
-                                                '''else:
-                                                    print("Invalid option. Please try again.")'''
-                                        elif option3 == 2:
-                                            while True:
-                                                    clinic_id = int(input('Choose a clinic id'))
-                                                    result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
-                                                    table = PrettyTable()
-                                                    table.field_names = ["Clinic ID", "Service", "Capacity", "Reserved Appointments", "Address", "Contact Info"]
-                                                    for row in result_view_capacity:
-                                                        table.add_row(row)
-                                                    print("\nClinic Capacity Info: ")
-                                                    print(table)
-                                                    print('1. Reserve an appointment')
-                                                    print('2. Cancel an appointment')
-                                                    print('3. Log out')
-                                                    option6 = int(input('Choose an option: '))
-                                                    if option6 == 1:
-                                                        #= int(input('Please choose a clinic id.'))
-                                                        # Ask for the number of appointments to reserve
-                                                        number_of_appointments = int(input('Enter the number of appointments to reserve: '))
-                                                        # Ask for the patient's national code
-                                                        patient_national_code = input('Enter the patient\'s national code: ')
-                                                        # Call the reserve_appointment method
-                                                        result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                        input('For loging out, enter a word: ')
-                                                        log_out()
-                                                        break
-                                                    elif option6 == 2:
-                                                        # Ask for the number of appointments to cancel
-                                                        number_of_appointments = int(input('Enter the number of appointments to cancel: '))
-                                                        # Ask for the patient's national code
-                                                        patient_national_code = input('Enter the patient\'s national code: ')
-                                                        # Call the cancel_appointment method
-                                                        result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
-                                                        print(result_cancellation)
-                                                        input('For loging out, enter a word: ')
-                                                        log_out()
-                                                        break
-                                                    elif option6 == 3:
-                                                        log_out()
-                                                        break
-                                                    '''else:
-                                                        ("Invalid option. Please try again.")'''
-                                        elif option3 == 3:
-                                            log_out()
-                                            break
-                                        '''else :
-                                            print("Invalid option. Please try again.")'''
-                        
-                                elif option2 == 2:
-                                    log_out()
+                    if not patient.log_in() : 
+                        break
+                    else :
+                        while True:
+                            print('1. Your reserved appointments')
+                            print('2. Available appointments')
+                            print('3. Log out')
+                            option1 = int(input('Please choose an option: '))
+                            if option1 == 3:
+                                log_out()
+                                break
+                            elif option1 == 1:
+                                while True:
+                                    result_patinet_reserved = patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
+                                    print("\nPatient Reserved Appointments Info:")
+                                    for row in result_patinet_reserved:
+                                        print(row)
+                                    print('Heading to previous menu')
                                     break
-                                '''else:
-                                    print("Invalid option. Please try again.")'''
-                        elif option == 3:
-                            log_out()
-                            break
-                        '''else:
-                            print("Invalid option. Please try again.")'''
-                break
-
+                            elif option1 == 2:
+                                while True:
+                                        clinic_id = int(input('Choose a clinic id'))
+                                        result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
+                                        print("\nClinic Capacity Info:")
+                                        for row in result_view_capacity:
+                                            print(row)
+                                        print('1. Reserve an appointment')
+                                        print('2. Cancel an appointment')
+                                        print('Back')
+                                        option2 = int(input('Choose an option: '))
+                                        if option2 == 1:
+                                            #= int(input('Please choose a clinic id.'))
+                                            # Ask for the number of appointments to reserve
+                                            number_of_appointments = int(input('Enter the number of appointments to reserve: '))
+                                            # Ask for the patient's national code
+                                            patient_national_code = input('Enter the patient\'s national code: ')
+                                            # Call the reserve_appointment method
+                                            result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
+                                            input('For loging out, enter a word: ')
+                                            log_out()
+                                            print("Back to main menu")
+                                            break
+                                        elif option2 == 2:
+                                            # Ask for the number of appointments to cancel
+                                            number_of_appointments = int(input('Enter the number of appointments to cancel: '))
+                                            # Ask for the patient's national code
+                                            patient_national_code = input('Enter the patient\'s national code: ')
+                                            # Call the cancel_appointment method
+                                            result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
+                                            print(result_cancellation)
+                                            input('For loging out, enter a word: ')
+                                            log_out()
+                                            print("Back to main menu")
+                                            break
+                                        elif option2 == 3:
+                                            log_out()
+                                            print("Back to main menu")
+                                            break
         elif position == 2:
             secretary = Secretary()
             appointment = Appointment()
             while True:
-                if not secretary.enter_code():
+                print("1. Login to secretary page")
+                print("2. Exit")
+                option1 = int(input("Choose an option:"))
+                if option1 == 2 :
+                    print("Heading to home page")
                     break
-                clinic_id = secretary.choose_clinic()
-                result_secretary_view_info = secretary.select_each_clinic_info(clinic_id)
-                table = PrettyTable()
-                table.field_names = ["Patient National Code", "Patient Name", "Reserved Appointments", "Patient Age", "Patient Insurance", "Patient Contact Info"]
-                for row in result_secretary_view_info:
-                    table.add_row(row)
-                print("\nEach Clinic Info:")
-                print(table)
-                print('1. Reserving an appointment')
-                print('2. Canceling an appointment')
-                print('3. Increase clinic capacity')
-                print('4. Logout')
-                option = int(input('Please choose an option: '))
-                if option == 1:
-                    # Ask for the number of appointments to reserve
-                    number_of_appointments = int(input('Enter the number of appointments to reserve: '))
-                    # Ask for the patient's national code
-                    patient_national_code = input('Enter the patient\'s national code: ')
-                    # Call the reserve_appointment method
-                    result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
-                    print(result_reservation)
-                elif option == 2:
-                    # Ask for the number of appointments to cancel
-                    number_of_appointments = int(input('Enter the number of appointments to cancel: '))
-                    # Ask for the patient's national code
-                    patient_national_code = input('Enter the patient\'s national code: ')
-                    # Call the cancel_appointment method
-                    result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
-                    print(result_cancellation)
-                elif option == 3:
-                    # Ask for the amount to increase the clinic capacity
-                    increase_amount = int(input('Enter the amount to increase the clinic capacity: '))
-                    # Call the increase_capacity method
-                    result_increase = appointment.increase_capacity(clinic_id, increase_amount)
-                    if result_increase:
-                        print("Clinic capacity increased successfully.")
-                    else:
-                        print("Failed to increase clinic capacity.")
-                elif option == 4:
-                    log_out()
-                    break
-                else :
-                    print("Invalid option. Please try again.")
+                elif option1 == 1 :
+                    if not secretary.enter_code():
+                        break
+                    clinic_id = secretary.choose_clinic()
+                    result_secretary_view_info = secretary.select_each_clinic_info(clinic_id)
+                    print("\nEach Clinic Info:")
+                    for row in result_secretary_view_info:
+                        print(row)
+                    while True :
+                        print('1. Reserving an appointment')
+                        print('2. Canceling an appointment')
+                        print('3. Increase clinic capacity')
+                        print('4. Logout')
+                        option = int(input('Please choose an option: '))
+                        if option == 1:
+                            # Ask for the number of appointments to reserve
+                            number_of_appointments = int(input('Enter the number of appointments to reserve: '))
+                            # Ask for the patient's national code
+                            patient_national_code = input('Enter the patient\'s national code: ')
+                            # Call the reserve_appointment method
+                            result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
+                            print(result_reservation)
+                        elif option == 2:
+                            # Ask for the number of appointments to cancel
+                            number_of_appointments = int(input('Enter the number of appointments to cancel: '))
+                            # Ask for the patient's national code
+                            patient_national_code = input('Enter the patient\'s national code: ')
+                            # Call the cancel_appointment method
+                            result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
+                            print(result_cancellation)
+                        elif option == 3:
+                            # Ask for the amount to increase the clinic capacity
+                            increase_amount = int(input('Enter the amount to increase the clinic capacity: '))
+                            # Call the increase_capacity method
+                            result_increase = appointment.increase_capacity(clinic_id, increase_amount)
+                            if result_increase:
+                                print("Clinic capacity increased successfully.")
+                            else:
+                                print("Failed to increase clinic capacity.")
+                        elif option == 4:
+                            log_out()
+                            break
+                        else :
+                            print("Invalid option. Please try again.")
 
         elif position == 3:
             doctor = Doctor()
@@ -370,22 +167,16 @@ def main():
                 if option == 1:
                     clinic_id = doctor.choose_clinic()
                     result_doctor_view_info = doctor.select_each_clinic_info(clinic_id)
-                    table = PrettyTable()
-                    table.field_names = ["Patient National Code", "Patient Name", "Patient Age", "Patient Insurance", "Patient Contact Info", "Reserved Appointments"]
-                    for row in result_doctor_view_info:
-                        table.add_row(row)
                     print("\nEach Clinic Info:")
-                    print(table)
+                    for row in result_doctor_view_info:
+                        print(row)
                 elif option == 2:
                     if not doctor.view_patient_data():
                         break
                     result_view_patient = doctor.select_each_patient_info(patient_national_code=input('Please enter your national code.'))
-                    table = PrettyTable()
-                    table.field_names = ["Patient National Code", "Patient Name", "Patient Age", "Patient Insurance", "Patient Contact Info", "Reserved Appointments"]
-                    for row in result_view_patient:
-                        table.add_row(row)
                     print("\nEach Patient Info:")
-                    print(table)
+                    for row in result_view_patient:
+                        print(row)
                 elif option == 3:
                     log_out()
                     break
@@ -402,7 +193,6 @@ def main():
                 'Amiodarone': 9,
                 'Articaine': 8
             })
-            pharmacy.insert_inventory()  # Insert the inventory into the database
             while True :
                 print('1. Tetrahydrozoline')
                 print('2. carbetocin')
@@ -444,7 +234,6 @@ def main():
                 elif option7 == 8:
                     log_out()
                     break
-
                 
 
         '''elif position == 5:

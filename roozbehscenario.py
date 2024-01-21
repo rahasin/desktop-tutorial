@@ -103,10 +103,10 @@ def main():
             secretary = Secretary()
             appointment = Appointment()
             while True:
-                option1 = int(input("Choose an option:"))
                 print("1. Login to secretary page")
                 print("2. Exit")
-                if option2 == 2 :
+                option1 = int(input("Choose an option:"))
+                if option1 == 2 :
                     print("Heading to home page")
                     break
                 elif option1 == 1 :
