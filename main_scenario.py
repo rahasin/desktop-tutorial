@@ -402,6 +402,7 @@ def main():
                 'Amiodarone': 9,
                 'Articaine': 8
             })
+            pharmacy.insert_inventory()  # Insert the inventory into the database
             while True :
                 print('1. Tetrahydrozoline')
                 print('2. carbetocin')
@@ -443,6 +444,7 @@ def main():
                 elif option7 == 8:
                     log_out()
                     break
+
                 
 
         '''elif position == 5:
