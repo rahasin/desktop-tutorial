@@ -43,9 +43,9 @@ class Doctor:
         SELECT 
         patient_national_code, 
         patient_name, 
-        patient_contact_info, 
         patient_age, 
         patient_insurance, 
+        patient_contact_info,
         patients_reserved_appointments
         FROM patients 
         WHERE clinic_id = ? AND 
@@ -68,9 +68,9 @@ class Doctor:
         SELECT 
         patient_national_code, 
         patient_name, 
-        patient_contact_info, 
         patient_age, 
         patient_insurance, 
+        patient_contact_info, 
         patients_reserved_appointments
         FROM patients 
         WHERE patient_national_code = ?
