@@ -150,7 +150,6 @@ def main():
                                 elif option3 == 3:
                                     log_out()
                                     break
-                                break
                                 '''else :
                                     print("Invalid option. Please try again.")'''      
                         elif option2 == 2:
