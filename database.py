@@ -22,7 +22,7 @@ try:
     # Create 'patients' table
     sql = """
     CREATE TABLE IF NOT EXISTS patients (
-        patient_national_code INTEGER NOT NULL,
+        patient_national_code NOT NULL,
         patient_name TEXT NOT NULL,
         patient_contact_info TEXT NOT NULL,
         patient_age INTEGER,
