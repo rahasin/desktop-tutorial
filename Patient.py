@@ -180,7 +180,7 @@ class Patient:
         capacity,
         clinic_reserved_appointments,
         address,
-        clinic_contact_info,
+        clinic_contact_info
         FROM clinics
         WHERE clinic_id = ?
         ORDER BY clinic_id ASC
