@@ -97,7 +97,7 @@ class Patient:
     def sign_up(self):
             # Check if the patient's national code is already in the database
             if self.patient_national_code in Patient.all_patient:
-                print('This national code already exists in the database, please log in.')
+                print('This national code already exists in the database')
                 return False
             else:
                 # If not, add the patient to the database and complete the sign-up process
