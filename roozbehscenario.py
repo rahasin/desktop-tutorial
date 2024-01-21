@@ -103,48 +103,56 @@ def main():
             secretary = Secretary()
             appointment = Appointment()
             while True:
-                if not secretary.enter_code():
+                option1 = int(input("Choose an option:"))
+                print("1. Login to secretary page")
+                print("2. Exit")
+                if option2 == 2 :
+                    print("Heading to home page")
                     break
-                clinic_id = secretary.choose_clinic()
-                result_secretary_view_info = secretary.select_each_clinic_info(clinic_id)
-                print("\nEach Clinic Info:")
-                for row in result_secretary_view_info:
-                    print(row)
-                print ('1. Reserving an appointment')
-                print('2. Canceling an appointment')
-                print('3. Increase clinic capacity')
-                print('4. Logout')
-                option = int(input('Please choose an option: '))
-                if option == 1:
-                    # Ask for the number of appointments to reserve
-                    number_of_appointments = int(input('Enter the number of appointments to reserve: '))
-                    # Ask for the patient's national code
-                    patient_national_code = input('Enter the patient\'s national code: ')
-                    # Call the reserve_appointment method
-                    result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
-                    print(result_reservation)
-                elif option == 2:
-                    # Ask for the number of appointments to cancel
-                    number_of_appointments = int(input('Enter the number of appointments to cancel: '))
-                    # Ask for the patient's national code
-                    patient_national_code = input('Enter the patient\'s national code: ')
-                    # Call the cancel_appointment method
-                    result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
-                    print(result_cancellation)
-                elif option == 3:
-                    # Ask for the amount to increase the clinic capacity
-                    increase_amount = int(input('Enter the amount to increase the clinic capacity: '))
-                    # Call the increase_capacity method
-                    result_increase = appointment.increase_capacity(clinic_id, increase_amount)
-                    if result_increase:
-                        print("Clinic capacity increased successfully.")
-                    else:
-                        print("Failed to increase clinic capacity.")
-                elif option == 4:
-                    log_out()
-                    break
-                else :
-                    print("Invalid option. Please try again.")
+                elif option1 == 1 :
+                    if not secretary.enter_code():
+                        break
+                    clinic_id = secretary.choose_clinic()
+                    result_secretary_view_info = secretary.select_each_clinic_info(clinic_id)
+                    print("\nEach Clinic Info:")
+                    for row in result_secretary_view_info:
+                        print(row)
+                    while True :
+                        print('1. Reserving an appointment')
+                        print('2. Canceling an appointment')
+                        print('3. Increase clinic capacity')
+                        print('4. Logout')
+                        option = int(input('Please choose an option: '))
+                        if option == 1:
+                            # Ask for the number of appointments to reserve
+                            number_of_appointments = int(input('Enter the number of appointments to reserve: '))
+                            # Ask for the patient's national code
+                            patient_national_code = input('Enter the patient\'s national code: ')
+                            # Call the reserve_appointment method
+                            result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
+                            print(result_reservation)
+                        elif option == 2:
+                            # Ask for the number of appointments to cancel
+                            number_of_appointments = int(input('Enter the number of appointments to cancel: '))
+                            # Ask for the patient's national code
+                            patient_national_code = input('Enter the patient\'s national code: ')
+                            # Call the cancel_appointment method
+                            result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
+                            print(result_cancellation)
+                        elif option == 3:
+                            # Ask for the amount to increase the clinic capacity
+                            increase_amount = int(input('Enter the amount to increase the clinic capacity: '))
+                            # Call the increase_capacity method
+                            result_increase = appointment.increase_capacity(clinic_id, increase_amount)
+                            if result_increase:
+                                print("Clinic capacity increased successfully.")
+                            else:
+                                print("Failed to increase clinic capacity.")
+                        elif option == 4:
+                            log_out()
+                            break
+                        else :
+                            print("Invalid option. Please try again.")
 
         elif position == 3:
             doctor = Doctor()
