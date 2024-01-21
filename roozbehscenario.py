@@ -37,16 +37,9 @@ def main():
                     log_out()
                     break
                 elif option == 1:
-                    while True:
-                        patient.insert_data()
-                        patient.sign_up()
-                        if not patient.sign_up :
-                            print("Now you are heading to home page")
-                            option2 = 1
-                            break
-                        elif patient.sign_up : 
-                            print("Now you are heading to home page")
-                            break
+                    patient.insert_data()
+                    patient.sign_up()
+                    print("Now you are heading to home page")
                 elif option == 2:
                     if not patient.log_in() : 
                         break
