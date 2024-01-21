@@ -135,6 +135,7 @@ def main():
                         print('4. Logout')
                         option = int(input('Please choose an option: '))
                         if option == 1:
+                            clinic_id = int(input('Please choose a clinic id:'))
                             # Ask for the number of appointments to reserve
                             number_of_appointments = int(input('Enter the number of appointments to reserve: '))
                             # Ask for the patient's national code
@@ -143,6 +144,7 @@ def main():
                             result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
                             print(result_reservation)
                         elif option == 2:
+                            clinic_id = int(input('Please choose a clinic id:'))
                             # Ask for the number of appointments to cancel
                             number_of_appointments = int(input('Enter the number of appointments to cancel: '))
                             # Ask for the patient's national code
@@ -151,6 +153,7 @@ def main():
                             result_cancellation = appointment.cancel_appointment(clinic_id, number_of_appointments, patient_national_code)
                             print(result_cancellation)
                         elif option == 3:
+                            clinic_id = int(input('Please choose a clinic id:'))
                             # Ask for the amount to increase the clinic capacity
                             increase_amount = int(input('Enter the amount to increase the clinic capacity: '))
                             # Call the increase_capacity method
@@ -210,6 +213,7 @@ def main():
                 'Amiodarone': 9,
                 'Articaine': 8
             })
+            pharmacy.insert_inventory()
             while True :
                 print('1. Tetrahydrozoline')
                 print('2. carbetocin')

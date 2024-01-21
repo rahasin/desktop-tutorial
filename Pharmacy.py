@@ -25,21 +25,24 @@ class Pharmacy:
             return False
 
     def insert_inventory(self):
-        cursor = self.connection.cursor()
-        sql = "INSERT OR REPLACE INTO pharmacy (drug_name, quantity) VALUES (?, ?)"
-        values = [(drug, quantity) for drug, quantity in self.inventory.items()]
-        cursor.executemany(sql, values)
-        self.connection.commit()
-    
+            cursor = self.connection.cursor()
+            sql = "INSERT OR REPLACE INTO pharmacy (drug_name, quantity) VALUES (?, ?)"
+            values = [(drug, quantity) for drug, quantity in self.inventory.items()]
+            cursor.executemany(sql, values)
+            self.connection.commit()
+            
     def update_inventory(self, drug):
-        # Dispense the drug and update the inventory
-        self.inventory[drug] -= 1
+            try:
+                # Dispense the drug and update the inventory
+                self.inventory[drug] -= 1
 
-        # Update the quantity in the database
-        cursor = self.connection.cursor()
-        sql = "UPDATE pharmacy SET quantity = ? WHERE drug_name = ?"
-        values = (self.inventory[drug], drug)
-        cursor.execute(sql, values)
-        self.connection.commit()
-    
+                # Update the quantity in the database
+                cursor = self.connection.cursor()
+                sql = "UPDATE pharmacy SET quantity = ? WHERE drug_name = ?"
+                values = (self.inventory[drug], drug)
+                cursor.execute(sql, values)
+                self.connection.commit()
+            except Exception as e:
+                print(f"An error occurred: {e}")
+        
 
