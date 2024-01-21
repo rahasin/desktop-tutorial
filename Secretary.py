@@ -42,7 +42,7 @@ class Secretary:
         SELECT 
         patient_national_code, 
         patient_name, 
-        patients_reserved_appointments,
+        patient_reserved_appointments,
         patient_age, 
         patient_insurance, 
         patient_contact_info
