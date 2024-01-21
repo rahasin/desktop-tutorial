@@ -4,6 +4,7 @@ from Doctor import Doctor
 from Patient import Patient
 from Pharmacy import Pharmacy
 from Clinic import Clinic
+from prettytable import PrettyTable
 
 def log_out():
         print('You have been logged out.')
@@ -55,9 +56,12 @@ def main():
                             elif option1 == 1:
                                 while True:
                                     result_patinet_reserved = patient.select_patient_reserved_appointments_info(patient_national_code=input('Please enter your national code.'))
-                                    print("\nPatient Reserved Appointments Info:")
+                                    table = PrettyTable()
+                                    table.field_names = ["Patient National Code", "Patient Name", "Clinic ID", "Reserved Appointments"]
                                     for row in result_patinet_reserved:
-                                        print(row)
+                                        table.add_row(row)
+                                    print("\nPatient Reserved Appointments Info:")
+                                    print(table)
                                     print('Heading to previous menu')
                                     break
                             elif option1 == 2:
@@ -65,8 +69,12 @@ def main():
                                         clinic_id = int(input('Choose a clinic id'))
                                         result_view_capacity = patient.select_clinic_capacity_info(clinic_id)
                                         print("\nClinic Capacity Info:")
+                                        table = PrettyTable()
+                                        table.field_names = ["Clinic ID", "Service", "Capacity", "Reserved Appointments", "Address", "Contact Info"]
                                         for row in result_view_capacity:
-                                            print(row)
+                                            table.add_row(row)
+                                        print("\nClinic Capacity Info: ")
+                                        print(table)
                                         print('1. Reserve an appointment')
                                         print('2. Cancel an appointment')
                                         print('Back')
@@ -114,9 +122,12 @@ def main():
                         break
                     clinic_id = secretary.choose_clinic()
                     result_secretary_view_info = secretary.select_each_clinic_info(clinic_id)
-                    print("\nEach Clinic Info:")
+                    table = PrettyTable()
+                    table.field_names = ["Patient National Code", "Patient Name", "Reserved Appointments", "Patient Age", "Patient Insurance", "Patient Contact Info"]
                     for row in result_secretary_view_info:
-                        print(row)
+                        table.add_row(row)
+                    print("\nEach Clinic Info:")
+                    print(table)
                     while True :
                         print('1. Reserving an appointment')
                         print('2. Canceling an appointment')
@@ -167,16 +178,22 @@ def main():
                 if option == 1:
                     clinic_id = doctor.choose_clinic()
                     result_doctor_view_info = doctor.select_each_clinic_info(clinic_id)
-                    print("\nEach Clinic Info:")
+                    table = PrettyTable()
+                    table.field_names = ["Patient National Code", "Patient Name", "Patient Age", "Patient Insurance", "Patient Contact Info", "Reserved Appointments"]
                     for row in result_doctor_view_info:
-                        print(row)
+                        table.add_row(row)
+                    print("\nEach Clinic Info:")
+                    print(table)
                 elif option == 2:
                     if not doctor.view_patient_data():
                         break
                     result_view_patient = doctor.select_each_patient_info(patient_national_code=input('Please enter your national code.'))
-                    print("\nEach Patient Info:")
+                    table = PrettyTable()
+                    table.field_names = ["Patient National Code", "Patient Name", "Patient Age", "Patient Insurance", "Patient Contact Info", "Reserved Appointments"]
                     for row in result_view_patient:
-                        print(row)
+                        table.add_row(row)
+                    print("\nEach Patient Info:")
+                    print(table)
                 elif option == 3:
                     log_out()
                     break
