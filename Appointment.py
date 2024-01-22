@@ -11,7 +11,7 @@ class Appointment:
         data = {'id': clinic_id, 'reserved': reserved}
         response = requests.post(url, json=data)
         result = response.json()
-
+        
         if result['success']:
             # Update SQLite database
             cursor = self.connection.cursor()

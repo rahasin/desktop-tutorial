@@ -15,10 +15,12 @@ class Clinic:
         }
 
     def get_info(self):
+        # Send GET request to Flask API
         response = requests.get('http://127.0.0.1:5000/slots')
         return response.json()
 
     def insert_data(self):
+        # Insert data
         data = self.get_info()
         if data is not None:
             cursor = self.connection.cursor()

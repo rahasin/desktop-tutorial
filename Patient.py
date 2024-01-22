@@ -3,10 +3,12 @@ import random
 import string
 import re
 from db_connector import create_connection
+# Logging out
 def log_out():
         print('You have been logged out.')
         return None
 
+# Generating temporary password
 def generate_password(length):
     characters = string.ascii_lowercase + string.digits 
     random_string = ''.join(random.choice(characters) for _ in range(length))
@@ -20,24 +22,25 @@ class Patient:
         
 
     def get_info(self):
+        # Getting patient's information
         while True:
-            self.patient_national_code = input("Enter your national code: ")
+            self.patient_national_code = input('Enter your national code: ')
             if len(self.patient_national_code) != 10:
-                print("National code is incorrect, it must contain 10 digits. Please try again.")
+                print('National code is incorrect, it must contain 10 digits. Please try again.')
                 continue
             break
 
-        self.patient_name = input("Enter your full name: ")
+        self.patient_name = input('Enter your full name: ')
 
         while True:
-            self.patient_contact_info = input("Enter your contact info: ")
+            self.patient_contact_info = input('Enter your contact info: ')
             if len(self.patient_contact_info) != 11 :
-                print("This phone number is incorrect, it must contain 11 digits. Please try again.")
+                print('This phone number is incorrect, it must contain 11 digits. Please try again.')
                 continue
             break
 
         while True:
-            self.age = input("Enter your age: ")
+            self.age = input('Enter your age: ')
             if not self.age.isdigit():
                 print('Please enter a number.')
                 continue
@@ -45,19 +48,19 @@ class Patient:
                 self.age = int(self.age)
                 break
 
-        self.insurance = input("Do you have insurance (Yes/No): ")
+        self.insurance = input('Do you have insurance (Yes/No): ')
 
         while True:
-            print("Choose a password type:")
+            print('Choose a password type: ')
             print('1. Temporary')
             print('2. Permanent')
             try:
                 self.password_type = int(input('Please choose an option: '))
                 if self.password_type not in [1, 2]:
-                    print("Invalid option. Please try again.")
+                    print('Invalid option. Please try again.')
                     continue
             except ValueError:
-                print("Invalid input. Please enter a number.")
+                print('Invalid input. Please enter a number.')
                 continue
             break
 
@@ -75,13 +78,13 @@ class Patient:
             try:
                 self.clinic_id = int(input('Please choose a clinic id(1 , 2 , 3 , 4 , 5 , 6 , 7): '))
                 if self.clinic_id not in [1, 2, 3, 4, 5, 6, 7]:
-                    print("Invalid clinic id. Please try again.")
+                    print('Invalid clinic id. Please try again.')
                     continue
             except ValueError:
-                print("Invalid input. Please enter a number.")
+                print('Invalid input. Please enter a number.')
                 continue
             break
-
+        # Returning patient's information
         self.patient_info = {
             "patient_national_code" : self.patient_national_code,
             "patient_name" : self.patient_name,
@@ -106,11 +109,11 @@ class Patient:
                 return True
         
     def log_in(self):
-        
+        # Logging in
         max_attempts = 3
         attempts = 0
         while True:
-            self.patient_national_code = input('Enter your national code:')
+            self.patient_national_code = input('Enter your national code: ')
             if self.patient_national_code in Patient.all_patient:
                 if Patient.all_patient[self.patient_national_code].password_type == 1:
                     print(f'Your temporary password is {generate_password(8)}')
@@ -152,7 +155,7 @@ class Patient:
             result = cursor.fetchone()
 
             # If the patient does not exist, insert the new data
-            if result is None:  # changed here
+            if result is None:  
                 sql = """
                 INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_password , patient_reserved_appointments , clinic_id) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -168,11 +171,13 @@ class Patient:
                 cursor.execute(query)
             else:
                 cursor.execute(query, values)
-            return cursor.fetchall()  # Return all rows of the result
+            # Return all rows of the result
+            return cursor.fetchall() 
         except Exception as e:
            print(f"An error occurred: {e}")
 
     def select_clinic_capacity_info(self, clinic_id):
+        # Viewing clinics and their capacities
         query = """
         SELECT 
         clinic_id,
@@ -189,6 +194,7 @@ class Patient:
         return self.execute_query(query, values)
     
     def select_patient_reserved_appointments_info(self, patient_national_code):
+        # Viewing reserved appointments
         query ="""
         SELECT 
         patient_national_code, 

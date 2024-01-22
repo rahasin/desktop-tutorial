@@ -3,12 +3,14 @@ from db_connector import create_connection
 class Secretary:
     def __init__(self):
         self.connection = create_connection()
+        # A specialized code for secretary's enterance
         self.secretary_special_code = 's1234567@c'
         self.clinic_ids = [1,2,3,4,5,6,7]
 
     def enter_code(self):
+         # Checking doctor's special code
         while True:
-            code = input("Please enter the secretary special code: ")
+            code = input('Please enter the secretary special code: ')
             if code == self.secretary_special_code:
                 return True
             else:
@@ -16,6 +18,7 @@ class Secretary:
                 return False
 
     def choose_clinic(self):
+        # Choosing a clinic_id
         while True:
             try:
                 clinic_id = int(input('Please choose your clinic id: '))
@@ -24,7 +27,7 @@ class Secretary:
                 else:
                     print('No clinic exists with this id.')
             except ValueError:
-                print("Invalid input. Please enter a number.")
+                print('Invalid input. Please enter a number.')
 
     def execute_query(self, query, values=None):
         try:
@@ -33,9 +36,10 @@ class Secretary:
                 cursor.execute(query)
             else:
                 cursor.execute(query, values)
-            return cursor.fetchall()  # Return all rows of the result
+            # Return all rows of the result
+            return cursor.fetchall()  
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f'An error occurred: {e}')
 
     def select_each_clinic_info(self, clinic_id):
         query = """

@@ -8,13 +8,13 @@ class Pharmacy:
         self.connection = create_connection()
 
     def dispense_drug(self, drug):
-        # Check if the drug is in stock
+        # Check if the drug is in stock and unpdating database
         if self.check_availability(drug):
             self.update_inventory(drug)
-            print("We have your drug in stock.\nThanks for your shopping!")
+            print('We have your drug in stock.\nThanks for your shopping!')
             return True
         else:
-            print(f"Sorry, {drug} is currently out of stock.\n")
+            print(f'Sorry, {drug} is currently out of stock.\n')
             return False
 
     def check_availability(self, drug):
@@ -25,6 +25,7 @@ class Pharmacy:
             return False
 
     def insert_inventory(self):
+            # Inserting inventory
             cursor = self.connection.cursor()
             sql = "INSERT OR REPLACE INTO pharmacy (drug_name, quantity) VALUES (?, ?)"
             values = [(drug, quantity) for drug, quantity in self.inventory.items()]
@@ -43,6 +44,6 @@ class Pharmacy:
                 cursor.execute(sql, values)
                 self.connection.commit()
             except Exception as e:
-                print(f"An error occurred: {e}")
+                print(f'An error occurred: {e}')
         
 
