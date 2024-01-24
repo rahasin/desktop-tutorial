@@ -1,16 +1,37 @@
 from db_connector import create_connection
+# Logging out
+def log_out():
+        print('You have been logged out.')
+        return None
 
 class Pharmacy:
 
-    def __init__(self,inventory):
+    def __init__(self, inventory):
         # Inventory is a dictionary with drug names as keys and quantities as values
         self.inventory = inventory
         self.connection = create_connection()
 
-    def dispense_drug(self, drug):
-        # Check if the drug is in stock and unpdating database
-        if self.check_availability(drug):
+    def check_patient(self, patient_national_code):
+        # Check if the patient exists in the database
+        cursor = self.connection.cursor()
+        sql = "SELECT * FROM patient_info WHERE patient_national_code = ?"
+        cursor.execute(sql, (patient_national_code,))
+        result = cursor.fetchone()
+        if result is None:
+            print('Please sign up first.')
+            log_out()
+            return False
+        else:
+            return True
+
+    def dispense_drug(self, drug, patient_national_code):
+        # Check if the patient exists and if the drug is in stock
+        if self.check_patient(patient_national_code) and self.check_availability(drug):
             self.update_inventory(drug)
+            if self.check_insurance(patient_national_code):
+                print('You have 70 percent discount as you have insurance.')
+            else:
+                print('You have to pay full price as you do not have insurance.')
             print('We have your drug in stock.\nThanks for your shopping!')
             return True
         else:

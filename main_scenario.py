@@ -39,7 +39,7 @@ def main():
                 elif option == 1:
                     patient.insert_data()
                     patient.sign_up()
-                    print('Now you are heading to home page')
+                    print('Now you are heading to home page.')
                 elif option == 2:
                     if not patient.log_in() : 
                         break
@@ -61,7 +61,7 @@ def main():
                                         table.add_row(row)
                                     print('\nPatient Reserved Appointments Info: ')
                                     print(table)
-                                    print('Heading to previous menu')
+                                    print('Heading to previous menu.')
                                     break
                             elif option1 == 2:
                                 while True:
@@ -76,7 +76,7 @@ def main():
                                         print(table)
                                         print('1. Reserve an appointment')
                                         print('2. Cancel an appointment')
-                                        print('Back')
+                                        print('3. Logout')
                                         option2 = int(input('Choose an option: '))
                                         if option2 == 1:
                                             clinic_id = int(input('Please choose a clinic id: '))
@@ -85,7 +85,7 @@ def main():
                                             result_reservation = appointment.reserve_appointment(clinic_id, number_of_appointments, patient_national_code)
                                             input('For loging out, enter a word: ')
                                             log_out()
-                                            print('Back to main menu')
+                                            print('Back to main menu.')
                                             break
                                         elif option2 == 2:
                                             clinic_id = int(input('Please choose a clinic id: '))
@@ -95,11 +95,11 @@ def main():
                                             print(result_cancellation)
                                             input('For loging out, enter a word: ')
                                             log_out()
-                                            print('Back to main menu')
+                                            print('Back to main menu.')
                                             break
                                         elif option2 == 3:
                                             log_out()
-                                            print('Back to main menu')
+                                            print('Back to main menu.')
                                             break
         elif position == 2:
             secretary = Secretary()
@@ -109,7 +109,7 @@ def main():
                 print('2. Exit')
                 option1 = int(input('Choose an option: '))
                 if option1 == 2 :
-                    print('Heading to home page')
+                    print('Heading to home page.')
                     break
                 elif option1 == 1 :
                     if not secretary.enter_code():
@@ -160,9 +160,9 @@ def main():
                 if not doctor.enter_code():
                     break
 
-                print("1. View clinic table")
-                print("2. View patient data")
-                print("3. Logout")
+                print('1. View clinic table')
+                print('2. View patient data')
+                print('3. Logout')
                 option = int(input('Please choose an option: '))
                 if option == 1:
                     clinic_id = doctor.choose_clinic()
@@ -171,7 +171,7 @@ def main():
                     table.field_names = ["Patient National Code", "Patient Name", "Patient Age", "Patient Insurance", "Patient Contact Info", "Reserved Appointments"]
                     for row in result_doctor_view_info:
                         table.add_row(row)
-                    print("\nEach Clinic Info:")
+                    print('\nEach Clinic Info:')
                     print(table)
                 elif option == 2:
                     if not doctor.view_patient_data():

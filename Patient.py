@@ -148,21 +148,40 @@ class Patient:
         data = self.get_info()
         if data is not None:
             cursor = self.connection.cursor()
-            # Check if the patient already exists in the 'patients' table
-            sql = "SELECT * FROM patients WHERE patient_national_code = ?"
-            val = (data['patient_national_code'],)  # corrected here
+            # Check if the patient already exists in the 'patient_info' table
+            sql = "SELECT * FROM patient_info WHERE patient_national_code = ?"
+            val = (data['patient_national_code'],)
             cursor.execute(sql , val)
             result = cursor.fetchone()
 
             # If the patient does not exist, insert the new data
             if result is None:  
+                # Insert into 'patient_info' table
                 sql = """
-                INSERT INTO patients (patient_national_code, patient_name , patient_contact_info , patient_age , patient_insurance , patient_password , patient_reserved_appointments , clinic_id) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO patient_info (patient_national_code, patient_name , patient_contact_info , patient_password) 
+                VALUES (?, ?, ?, ?)
                 """
-                val = (data['patient_national_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_age'] , data['patient_insurance'] , data['patient_password'] , 0 , data['clinic_id'])
+                val = (data['patient_national_code'] , data['patient_name'] , data['patient_contact_info'] , data['patient_password'])
                 cursor.execute(sql, val)
+
+                # Insert into 'patient_health' table
+                sql = """
+                INSERT INTO patient_health (patient_national_code, patient_age , patient_insurance) 
+                VALUES (?, ?, ?)
+                """
+                val = (data['patient_national_code'] , data['patient_age'] , data['patient_insurance'])
+                cursor.execute(sql, val)
+
+                # Insert into 'patient_appointments' table
+                sql = """
+                INSERT INTO patient_appointments (patient_national_code, patient_reserved_appointments , clinic_id) 
+                VALUES (?, ?, ?)
+                """
+                val = (data['patient_national_code'] , 0 , data['clinic_id'])
+                cursor.execute(sql, val)
+
                 self.connection.commit()
+
     
     def execute_query(self, query, values=None):
         try:
@@ -192,22 +211,23 @@ class Patient:
         """
         values = (clinic_id,)
         return self.execute_query(query, values)
-    
+
     def select_patient_reserved_appointments_info(self, patient_national_code):
         # Viewing reserved appointments
         query ="""
         SELECT 
-        patient_national_code, 
-        patient_name,
-        clinic_id,
-        patient_reserved_appointments
-        FROM patients
-        WHERE patient_reserved_appointments > 0 
-        AND patient_national_code = ?
-        ORDER BY clinic_id
+        patient_info.patient_national_code, 
+        patient_info.patient_name,
+        patient_appointments.clinic_id,
+        patient_appointments.patient_reserved_appointments
+        FROM patient_info
+        JOIN patient_appointments ON patient_info.patient_national_code = patient_appointments.patient_national_code
+        WHERE patient_appointments.patient_reserved_appointments > 0 
+        AND patient_info.patient_national_code = ?
+        ORDER BY patient_appointments.clinic_id
         """
         values = (patient_national_code,)
         return self.execute_query(query, values)
-    
+
     def close_connection(self):
         self.connection.close()

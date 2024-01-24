@@ -42,20 +42,24 @@ class Secretary:
             print(f'An error occurred: {e}')
 
     def select_each_clinic_info(self, clinic_id):
+        # Viewing each clinic's info
         query = """
         SELECT 
-        patient_national_code, 
-        patient_name, 
-        patient_reserved_appointments,
-        patient_age, 
-        patient_insurance, 
-        patient_contact_info
-        FROM patients 
-        WHERE clinic_id = ? AND 
-        patient_reserved_appointments > 0 
+        patient_info.patient_national_code, 
+        patient_info.patient_name, 
+        patient_appointments.patient_reserved_appointments,
+        patient_health.patient_age, 
+        patient_health.patient_insurance, 
+        patient_info.patient_contact_info
+        FROM patient_info 
+        JOIN patient_health ON patient_info.patient_national_code = patient_health.patient_national_code
+        JOIN patient_appointments ON patient_info.patient_national_code = patient_appointments.patient_national_code
+        WHERE patient_appointments.clinic_id = ? AND 
+        patient_appointments.patient_reserved_appointments > 0 
         """
         values = (clinic_id,)
         return self.execute_query(query, values)
+
 
     def close_connection(self):
         self.connection.close()
