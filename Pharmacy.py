@@ -1,21 +1,57 @@
 from db_connector import create_connection
 
+
 class Pharmacy:
 
-    def __init__(self,inventory):
+    def __init__(self, inventory):
         # Inventory is a dictionary with drug names as keys and quantities as values
         self.inventory = inventory
         self.connection = create_connection()
 
-    def dispense_drug(self, drug):
-        # Check if the drug is in stock and unpdating database
-        if self.check_availability(drug):
-            self.update_inventory(drug)
-            print('We have your drug in stock.\nThanks for your shopping!')
+    def check_patient(self, patient_national_code):
+        # Check if the patient exists in the database
+        cursor = self.connection.cursor()
+        sql = "SELECT * FROM patient_info WHERE patient_national_code = ?"
+        cursor.execute(sql, (patient_national_code,))
+        result = cursor.fetchone()
+        if result is None:
+            print('Please sign up first.')
+            return False
+        else:
+            return True
+
+    def check_insurance(self, patient_national_code):
+        # Check if the patient has insurance
+        cursor = self.connection.cursor()
+        sql = "SELECT patient_insurance FROM patient_health WHERE patient_national_code = ?"
+        cursor.execute(sql, (patient_national_code,))
+        result = cursor.fetchone()
+        if result is not None and result[0] == 'Yes':
             return True
         else:
+            return False
+
+    def dispense_drug(self, drug, patient_national_code):
+        # Check if the patient exists
+        if not self.check_patient(patient_national_code):
+            return False
+
+        # Check if the drug is in stock
+        if not self.check_availability(drug):
             print(f'Sorry, {drug} is currently out of stock.\n')
             return False
+
+        # Dispense the drug and update the inventory
+        self.update_inventory(drug)
+
+        # Check the patient's insurance status and print the appropriate message
+        if self.check_insurance(patient_national_code):
+            print('You have 70 percent discount as you have insurance.')
+        else:
+            print('You have to pay full price as you do not have insurance.')
+
+        print('We have your drug in stock.\nThanks for your shopping!')
+        return True
 
     def check_availability(self, drug):
         # Check if the drug is in stock

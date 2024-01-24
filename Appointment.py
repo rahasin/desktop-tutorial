@@ -19,8 +19,8 @@ class Appointment:
             sql = "UPDATE clinics SET capacity = capacity - ?, clinic_reserved_appointments = clinic_reserved_appointments + ? WHERE clinic_id = ?"
             cursor.execute(sql, (reserved, reserved, clinic_id))
 
-            # Update patients table
-            sql = "UPDATE patients SET patient_reserved_appointments = patient_reserved_appointments + ? WHERE patient_national_code = ?"
+            # Update patient_appointments table
+            sql = "UPDATE patient_appointments SET patient_reserved_appointments = patient_reserved_appointments + ? WHERE patient_national_code = ?"
             cursor.execute(sql, (reserved, patient_national_code))
 
             self.connection.commit()
@@ -34,8 +34,8 @@ class Appointment:
         sql = "UPDATE clinics SET capacity = capacity + ?, clinic_reserved_appointments = clinic_reserved_appointments - ? WHERE clinic_id = ?"
         cursor.execute(sql, (cancelled, cancelled, clinic_id))
 
-        # Update patients table
-        sql = "UPDATE patients SET patient_reserved_appointments = patient_reserved_appointments - ? WHERE patient_national_code = ?"
+        # Update patient_appointments table
+        sql = "UPDATE patient_appointments SET patient_reserved_appointments = patient_reserved_appointments - ? WHERE patient_national_code = ?"
         cursor.execute(sql, (cancelled, patient_national_code))
         self.connection.commit()
 

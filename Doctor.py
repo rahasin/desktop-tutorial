@@ -46,16 +46,18 @@ class Doctor:
         # Viewing clinic and its patients
         query = """
         SELECT 
-        patient_national_code, 
-        patient_name, 
-        patient_age, 
-        patient_insurance, 
-        patient_contact_info,
-        patients_reserved_appointments
-        FROM patients 
-        WHERE clinic_id = ? AND 
-        patients_reserved_appointments > 0 
-        ORDER BY patient_national_code
+        patient_info.patient_national_code, 
+        patient_info.patient_name, 
+        patient_health.patient_age, 
+        patient_health.patient_insurance, 
+        patient_info.patient_contact_info,
+        patient_appointments.patient_reserved_appointments
+        FROM patient_info 
+        JOIN patient_health ON patient_info.patient_national_code = patient_health.patient_national_code
+        JOIN patient_appointments ON patient_info.patient_national_code = patient_appointments.patient_national_code
+        WHERE patient_appointments.clinic_id = ? AND 
+        patient_appointments.patient_reserved_appointments > 0 
+        ORDER BY patient_info.patient_national_code
         """
         values = (clinic_id,)
         return self.execute_query(query, values)
@@ -73,14 +75,16 @@ class Doctor:
         # Viewing patient's information
         sql_query = """
         SELECT 
-        patient_national_code, 
-        patient_name, 
-        patient_age, 
-        patient_insurance, 
-        patient_contact_info, 
-        patients_reserved_appointments
-        FROM patients 
-        WHERE patient_national_code = ?
+        patient_info.patient_national_code, 
+        patient_info.patient_name, 
+        patient_health.patient_age, 
+        patient_health.patient_insurance, 
+        patient_info.patient_contact_info, 
+        patient_appointments.patient_reserved_appointments
+        FROM patient_info 
+        JOIN patient_health ON patient_info.patient_national_code = patient_health.patient_national_code
+        JOIN patient_appointments ON patient_info.patient_national_code = patient_appointments.patient_national_code
+        WHERE patient_info.patient_national_code = ?
         """
         values = (patient_national_code,)
         return self.execute_query(sql_query, values)
