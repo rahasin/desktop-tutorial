@@ -209,39 +209,40 @@ def main():
                 print('6. Amiodarone')
                 print('7. Articaine')
                 print('8. Log out')
+                patient_national_code = input('Please enter your national code: ')
                 option7 = int(input('Please Enter the drug name'))
                 if option7 == 1: 
-                    pharmacy.dispense_drug('Tetrahydrozoline')
+                    pharmacy.dispense_drug('Tetrahydrozoline', patient_national_code)
                     log_out()
                     break
                 elif option7 == 2:
-                    pharmacy.dispense_drug('carbetocin')
+                    pharmacy.dispense_drug('carbetocin', patient_national_code)
                     log_out()
                     break
                 elif option7 == 3:
-                    pharmacy.dispense_drug('Mometasone')
+                    pharmacy.dispense_drug('Mometasone', patient_national_code)
                     log_out()
                     break
                 elif option7 == 4:
-                    pharmacy.dispense_drug('Amoxicillin')
+                    pharmacy.dispense_drug('Amoxicillin', patient_national_code)
                     log_out()
                     break
                 elif option7 == 5:
-                    pharmacy.dispense_drug('Diclofenac')
+                    pharmacy.dispense_drug('Diclofenac', patient_national_code)
                     log_out()
                     break
                 elif option7 == 6:
-                    pharmacy.dispense_drug('Amiodarone')
+                    pharmacy.dispense_drug('Amiodarone', patient_national_code)
                     log_out()
                     break
                 elif option7 == 7:
-                    pharmacy.dispense_drug('Articaine')
+                    pharmacy.dispense_drug('Articaine', patient_national_code)
                     log_out()
                     break
                 elif option7 == 8:
                     log_out()
                     break
-                
+
         
 
         

@@ -24,6 +24,17 @@ class Pharmacy:
         else:
             return True
 
+    def check_insurance(self, patient_national_code):
+        # Check if the patient has insurance
+        cursor = self.connection.cursor()
+        sql = "SELECT patient_insurance FROM patient_health WHERE patient_national_code = ?"
+        cursor.execute(sql, (patient_national_code,))
+        result = cursor.fetchone()
+        if result is not None and result[0] == 'Yes':
+            return True
+        else:
+            return False
+
     def dispense_drug(self, drug, patient_national_code):
         # Check if the patient exists and if the drug is in stock
         if self.check_patient(patient_national_code) and self.check_availability(drug):
