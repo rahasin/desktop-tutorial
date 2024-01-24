@@ -209,8 +209,8 @@ def main():
                 print('6. Amiodarone')
                 print('7. Articaine')
                 print('8. Log out')
+                option7 = int(input('Please Enter the drug name: '))
                 patient_national_code = input('Please enter your national code: ')
-                option7 = int(input('Please Enter the drug name'))
                 if option7 == 1: 
                     pharmacy.dispense_drug('Tetrahydrozoline', patient_national_code)
                     log_out()
