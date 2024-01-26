@@ -14,9 +14,11 @@ database = {
     "7": 8
 }
 
+
 @app.route('/slots', methods=['GET'])
 def get_slots():
     return jsonify(database)
+
 
 @app.route('/reserve', methods=['POST'])
 def reserve_slot():
@@ -29,6 +31,7 @@ def reserve_slot():
         return jsonify({"success": True, "remaining_slots": database[clinic_id]})
     else:
         return jsonify({"success": False, "message": "Invalid request"}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)

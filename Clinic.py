@@ -1,6 +1,7 @@
 import requests
 from db_connector import create_connection
 
+
 class Clinic:
     def __init__(self):
         self.connection = create_connection()
@@ -40,4 +41,3 @@ class Clinic:
 
     def close_connection(self):
         self.connection.close()
-

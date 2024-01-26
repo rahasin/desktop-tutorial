@@ -52,7 +52,7 @@ try:
     )
     """
     cursor.execute(sql)
-    
+
     # Create 'pharmacy' table
     sql = """
     CREATE TABLE IF NOT EXISTS pharmacy (
@@ -61,7 +61,6 @@ try:
     )
     """
     cursor.execute(sql)
-
 
     connection.commit()
 finally:

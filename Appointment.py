@@ -1,6 +1,7 @@
 import requests
 from db_connector import create_connection
 
+
 class Appointment:
     def __init__(self):
         self.connection = create_connection()
@@ -11,16 +12,18 @@ class Appointment:
         data = {'id': clinic_id, 'reserved': reserved}
         response = requests.post(url, json=data)
         result = response.json()
-        
+
         if result['success']:
             # Update SQLite database
             cursor = self.connection.cursor()
             # Update clinics table
-            sql = "UPDATE clinics SET capacity = capacity - ?, clinic_reserved_appointments = clinic_reserved_appointments + ? WHERE clinic_id = ?"
+            sql = ("UPDATE clinics SET capacity = capacity - ?, clinic_reserved_appointments = "
+                   "clinic_reserved_appointments + ? WHERE clinic_id = ?")
             cursor.execute(sql, (reserved, reserved, clinic_id))
 
             # Update patient_appointments table
-            sql = "UPDATE patient_appointments SET patient_reserved_appointments = patient_reserved_appointments + ? WHERE patient_national_code = ?"
+            sql = ("UPDATE patient_appointments SET patient_reserved_appointments = patient_reserved_appointments + ? "
+                   "WHERE patient_national_code = ?")
             cursor.execute(sql, (reserved, patient_national_code))
 
             self.connection.commit()
@@ -31,15 +34,17 @@ class Appointment:
         # Update SQLite database
         cursor = self.connection.cursor()
         # Update clinics table
-        sql = "UPDATE clinics SET capacity = capacity + ?, clinic_reserved_appointments = clinic_reserved_appointments - ? WHERE clinic_id = ?"
+        sql = ("UPDATE clinics SET capacity = capacity + ?, clinic_reserved_appointments = "
+               "clinic_reserved_appointments - ? WHERE clinic_id = ?")
         cursor.execute(sql, (cancelled, cancelled, clinic_id))
 
         # Update patient_appointments table
-        sql = "UPDATE patient_appointments SET patient_reserved_appointments = patient_reserved_appointments - ? WHERE patient_national_code = ?"
+        sql = ("UPDATE patient_appointments SET patient_reserved_appointments = patient_reserved_appointments - ? "
+               "WHERE patient_national_code = ?")
         cursor.execute(sql, (cancelled, patient_national_code))
         self.connection.commit()
 
-        print({"success": True, "message": "Appointment cancelled successfully"}) 
+        print({"success": True, "message": "Appointment cancelled successfully"})
         return True
 
     def increase_capacity(self, clinic_id, increase_amount):
